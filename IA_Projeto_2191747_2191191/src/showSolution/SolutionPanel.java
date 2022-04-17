@@ -2,6 +2,7 @@ package showSolution;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -12,23 +13,25 @@ public class SolutionPanel extends JFrame{
 //	/**
 //	 * @param args
 //	 */
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		// TODO Auto-generated method stub
-//		LinkedList<String> lista = new LinkedList<String>();
-//		String estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . . . . . H \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
+		LinkedList<String> lista = new LinkedList<String>();
+		PreRuntimeSettingsMenu init_frm = new PreRuntimeSettingsMenu();
+
+		/*String estado = 	"             \n" +
+		" . . . . .|. \n" +
+		"     -       \n" +
+		" . . . . . H \n" +
+		"     -       \n" +
+		" . . . .|. . \n" +
+		"       -   - \n" +
+		" . . . . .|. \n" +
+		"   - -       \n" +
+		" . . . M . . \n" +
+		"         -   \n" +
+		" . . . . . . \n" +
+		" S           \n";
+		lista.add(estado);
 //		estado = 	"             \n" +		
 //		" . . . . .|. \n" +
 //		"     -       \n" +
@@ -113,9 +116,11 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		showSolution(lista,10);
-//	}
-	
+
+		 */
+		//showSolution(lista,10);
+	}
+
 	private SolutionPanel(){
 		super("Show solution");
 		gameArea = new GameArea();
