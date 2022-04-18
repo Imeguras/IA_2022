@@ -9,115 +9,15 @@ import java.util.List;
 public class SolutionPanel extends JFrame{
 
 	private GameArea gameArea;
-
+	private static LinkedList<String> lista;
 //	/**
 //	 * @param args
 //	 */
 	public static void main(String[] args) {
 //		// TODO Auto-generated method stub
-		LinkedList<String> lista = new LinkedList<String>();
+		lista= new LinkedList<String>();
 		PreRuntimeSettingsMenu init_frm = new PreRuntimeSettingsMenu();
 
-		/*String estado = 	"             \n" +
-		" . . . . .|. \n" +
-		"     -       \n" +
-		" . . . . . H \n" +
-		"     -       \n" +
-		" . . . .|. . \n" +
-		"       -   - \n" +
-		" . . . . .|. \n" +
-		"   - -       \n" +
-		" . . . M . . \n" +
-		"         -   \n" +
-		" . . . . . . \n" +
-		" S           \n";
-		lista.add(estado);
-//		estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . . . . H   \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-//		estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . . . H . . \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-//		estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . . H . .   \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-//		estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . H . . . . \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-//		estado = 	"             \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" H . . . . . \n" +
-//		"     -       \n" +
-//		" . . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-//		estado = 	" S            \n" +		
-//		" . . . . .|. \n" +
-//		"     -       \n" +
-//		" . . . . . . \n" +
-//		"     -       \n" +
-//		" H . . .|. . \n" +
-//		"       -   - \n" +
-//		" . . . . .|. \n" +
-//		"   - -       \n" +
-//		" . . . M . . \n" +
-//		"         -   \n" +
-//		" . . . . . . \n" +
-//		" S           \n";
-//		lista.add(estado);
-
-		 */
 		//showSolution(lista,10);
 	}
 
@@ -133,7 +33,14 @@ public class SolutionPanel extends JFrame{
 //            }
 //        });
 	}
-	
+	public static void addState(String state){
+		//TODO parse and correct a state
+		lista.add(state);
+	}
+	//TODO: remove
+	public static void testInitial(){
+		showSolution(lista, lista.size());
+	}
 	public static void showSolution(final List<String> states, final double solutionCost){
 		final SolutionPanel p = new SolutionPanel();
 		p.setVisible(true);
