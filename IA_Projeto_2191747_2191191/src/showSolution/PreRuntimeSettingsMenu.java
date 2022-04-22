@@ -4,18 +4,17 @@ package showSolution;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 
 public class PreRuntimeSettingsMenu extends JFrame{
-    public static final int levelCharSize=181;
+
     private JFrame preRuntime;
     private JPanel area_Pre;
     private JComboBox combo_LevelSelector;
     private JButton btn_solve;
     //TODO Non Hardcoded
     private static String dir_path="/home/micron/sav/Trabalhos/2021-2022/2ºSemestre/Inteligencia_artificial/Projeto/IA_Projeto_2191747_2191191/IA_2022/IA_Projeto_2191747_2191191/niveis";
-    public PreRuntimeSettingsMenu() {
+    public PreRuntimeSettingsMenu(Main context) {
         super();
         preRuntime = new JFrame();
         //TODO centrar o menu ao ecrã
@@ -25,6 +24,8 @@ public class PreRuntimeSettingsMenu extends JFrame{
         preRuntime.setLayout(new BorderLayout());
 
         area_Pre = new JPanel();
+        area_Pre.setAlignmentX(0.5f);
+        area_Pre.setAlignmentY(0f);
         //area_Pre.setPreferredSize(preRuntime.getSize());
         preRuntime.setContentPane(area_Pre);
 
@@ -32,6 +33,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
         combo_LevelSelector.setMinimumSize(new Dimension(400,32));
         combo_LevelSelector.setPreferredSize(new Dimension(400,32));
         combo_LevelSelector.setAlignmentX(0);
+
         //combo_LevelSelector.setLocation(32,32);
         File dir = new File(dir_path);
         File[] directoryListing = dir.listFiles();
@@ -47,7 +49,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
         }
 
 
-        btn_solve = new JButton("Solve");
+        btn_solve = new JButton("Preview Map");
         btn_solve.setMinimumSize(new Dimension(86, 32));
         btn_solve.setPreferredSize(btn_solve.getMinimumSize());
         btn_solve.setAlignmentX(1);
@@ -56,15 +58,15 @@ public class PreRuntimeSettingsMenu extends JFrame{
             //TODO bad dir'ing
             String toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
             try{
+                Main.removeAllStates();
                 File fl_toopen = new File(toopen);
                 FileReader fl_r= new FileReader(fl_toopen);
-                char[] t = new char[levelCharSize];
+                char[] t = new char[Main.levelCharSize];
                 fl_r.read(t);
                 String content = String.valueOf(t);
                 System.out.println(content);
-                SolutionPanel.addState(content);
-
-                SolutionPanel.testInitial();
+                Main.addState(content);
+                context.showState(context.getStates_cloned().getFirst());
 
             }catch (Exception k){
                 System.err.println(k.getMessage());
