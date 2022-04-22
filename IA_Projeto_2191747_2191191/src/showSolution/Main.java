@@ -13,11 +13,8 @@ public class Main {
 	private GameArea gameArea;
 	private static LinkedList<String> lista;
 	private static JFrame context;
-//	/**
-//	 * @param args
-//	 */
+
 	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
 		final Main main= new Main();
 		PreRuntimeSettingsMenu init_frm = new PreRuntimeSettingsMenu(main);
 		context=init_frm.getContext();
@@ -41,7 +38,7 @@ public class Main {
 		lista.removeIf(s->s!="");
 	}
 	public static void addState(String state){
-		//TODO parse and correct a state
+		//TODO Verify the validity of before adding a state
 		if(state.length()!=levelCharSize){
 			System.err.println("State size mismatch with the supposed theoretical size");
 			return;
@@ -72,7 +69,6 @@ public class Main {
                 	try {
 						sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                 }
@@ -93,7 +89,6 @@ public class Main {
 				try {
 					sleep(1000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
