@@ -15,19 +15,21 @@ public class PreRuntimeSettingsMenu extends JFrame{
     //TODO Non Hardcoded
     private static String dir_path="/home/micron/sav/Trabalhos/2021-2022/2ºSemestre/Inteligencia_artificial/Projeto/IA_Projeto_2191747_2191191/IA_2022/IA_Projeto_2191747_2191191/niveis";
     public PreRuntimeSettingsMenu(Main context) {
-        super();
+        super("Temple Maze Solver Ainet 2022");
         preRuntime = new JFrame();
         //TODO centrar o menu ao ecrã
-        preRuntime.setBounds(0, 0, 500, 500);
-        preRuntime.setFocusable(true);
-        preRuntime.setVisible(true);
+        preRuntime.setSize(600,600);
+        preRuntime.setLocationRelativeTo(null);
+        //preRuntime.setBounds(0, 0, 500, 500);
+
         preRuntime.setLayout(new BorderLayout());
 
         area_Pre = new JPanel();
+
         area_Pre.setAlignmentX(0.5f);
         area_Pre.setAlignmentY(0f);
         //area_Pre.setPreferredSize(preRuntime.getSize());
-        preRuntime.setContentPane(area_Pre);
+
 
         combo_LevelSelector = new JComboBox();
         combo_LevelSelector.setMinimumSize(new Dimension(400,32));
@@ -77,6 +79,12 @@ public class PreRuntimeSettingsMenu extends JFrame{
 
         area_Pre.add(combo_LevelSelector);
         area_Pre.add(btn_solve);
+
+        preRuntime.setContentPane(area_Pre);
+
+        preRuntime.setFocusable(true);
+        preRuntime.setVisible(true);
+
         preRuntime.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
