@@ -6,7 +6,39 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+@todo make the hero move once per turn
+@body as said tittle
+ */
+/*
+@todo add regular mummy behaviour
+@body they should move twice per turn, after the hero and they should try to be on the same Y as the hero and then the same X
+ */
 
+/*
+@todo add red mummy behaviour
+@body they should move twice per turn, after the regular mummy and they should try to be on the same X as the hero and then the same Y
+ */
+/*
+@todo add scorpions behaviour
+@body they should move once per turn, after the red mummies are done, they have the same behaviour as the regular mummy
+ */
+/*
+@todo add key behaviour
+@body they should open gates once the hero stands
+ */
+/*
+@todo death square behaviour
+@body although mummies and other env. stuff can stay on it, hero's cant
+ */
+/*
+@todo fighting behaviour
+@body if two hostile entities stay on the same tile they should kill one in order for the level to have a solution
+ */
+/*
+@todo implement search methods to the hero
+@body as said tittle
+ */
 public class Main {
 	public static boolean flagBoolean;
 	public static final int levelCharSize=181;

@@ -12,7 +12,10 @@ public class PreRuntimeSettingsMenu extends JFrame{
     private JPanel area_Pre;
     private JComboBox combo_LevelSelector;
     private JButton btn_solve;
-
+    /*
+     @todo add a directory picker
+     @body maybe one that enables either picking an entire directory with a selectionable combobox or a just a file
+      */
     private static String dir_path="/home/micron/sav/Trabalhos/2021-2022/2ºSemestre/Inteligencia_artificial/IA_2022/IA_Projeto_2191747_2191191/niveis";
     public PreRuntimeSettingsMenu(Main context) {
         super("Temple Maze Solver Ainet 2022");
@@ -44,7 +47,10 @@ public class PreRuntimeSettingsMenu extends JFrame{
             }
 
         } else {
-
+            /*
+            @todo Fix case dir_path does not exist or is not readable
+            @body line 52 PreRuntimeSettingsMenu
+             */
         }
 
 
@@ -54,7 +60,10 @@ public class PreRuntimeSettingsMenu extends JFrame{
         btn_solve.setAlignmentX(1);
 
         btn_solve.addActionListener(e -> {
-            
+            /*
+            @todo Fix bad dir'ing
+            @body 65 PreRuntimeSettingsMenu
+             */
             String toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
             try{
                 Main.removeAllStates();
