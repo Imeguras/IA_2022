@@ -7,6 +7,38 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+// TODO [#16]: make the hero move once per turn
+// Body: as said tittle
+ 
+
+// TODO [#17]: add regular mummy behaviour
+// Body: they should move twice per turn, after the hero and they should try to be on the same Y as the hero and then the same X
+ 
+
+
+// TODO [#18]: add red mummy behaviour
+// Body: they should move twice per turn, after the regular mummy and they should try to be on the same X as the hero and then the same Y
+ 
+
+// TODO [#19]: add scorpions behaviour
+// Body: they should move once per turn, after the red mummies are done, they have the same behaviour as the regular mummy
+ 
+
+// TODO [#20]: add key behaviour
+// Body: they should open gates once the hero stands
+ 
+
+// TODO [#21]: death square behaviour
+// Body: although mummies and other env. stuff can stay on it, hero's cant
+ 
+
+// TODO [#22]: fighting behaviour
+// Body: if two hostile entities stay on the same tile they should kill one in order for the level to have a solution
+ 
+
+// TODO [#23]: implement search methods to the hero
+// Body: as said tittle
+ 
 public class Main {
 	public static boolean flagBoolean;
 	public static final int levelCharSize=181;
@@ -37,7 +69,6 @@ public class Main {
 		lista.removeIf(s->s!="");
 	}
 	public static void addState(String state){
-		//TODO Verify the validity of before adding a state
 		if(state.length()!=levelCharSize){
 			System.err.println("State size mismatch with the supposed theoretical size");
 			return;
@@ -77,7 +108,6 @@ public class Main {
 	}
 
 	public void showState(final String state){
-		//final Main p = new Main();
 		drawBoard();
 		context.setVisible(true);
 		Thread t = new Thread(){

@@ -98,7 +98,7 @@ public class GameArea extends JPanel {
 		if(state == null){
 			return;
 		}
-		String[] splitString = (state.split("\\n"));
+		String[] splitString = (state.split("\\r?\\n"));
 		
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 13; j++) {				
