@@ -10,7 +10,34 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 public class GameArea extends JPanel {
-	
+
+	enum state{
+		WALL_HORIZONTAL('-'),
+		DOOR_HORIZONTAL_CLOSED('='),
+		DOOR_HORIZONTAL_OPENED('_'),
+		WALL_VERTICAL('|'),
+		DOOR_VERTICAL_CLOSED('"'),
+		DOOR_VERTICAL_OPENED(')'),
+		MUMMY_WHITE( 'M'),
+		HERO('H'),
+		MUMMY_RED('V'),
+		TRAP('A'),
+		SCORPION('E'),
+		KEY('C'),
+		STAIRS('S'),
+		
+		WALKABLE('.'),
+		VOID(' '),
+		NEWLINE('\n');
+		char encodingValue;
+
+		public char getValue() {
+			return this.encodingValue;
+		}
+		state(char encodingValue){
+			this.encodingValue=encodingValue;
+		}
+	}
 	private Image trap;
 	private Image key;
 	private Image stairsDown;
