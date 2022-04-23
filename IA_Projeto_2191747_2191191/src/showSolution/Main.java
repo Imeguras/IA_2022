@@ -18,7 +18,6 @@ public class Main {
 		final Main main= new Main();
 		PreRuntimeSettingsMenu init_frm = new PreRuntimeSettingsMenu(main);
 		context=init_frm.getContext();
-		//showSolution(lista,10);
 	}
 	public Main(){
 		flagBoolean=false;
@@ -81,7 +80,6 @@ public class Main {
 		//final Main p = new Main();
 		drawBoard();
 		context.setVisible(true);
-		//context.pack();
 		Thread t = new Thread(){
 			public void run(){
 				setState(state);
@@ -96,7 +94,7 @@ public class Main {
 		t.start();
 	}
 
-	
+
 	private void setState(String state){
 		gameArea.setState(state);
 	}
