@@ -12,8 +12,11 @@ public class PreRuntimeSettingsMenu extends JFrame{
     private JPanel area_Pre;
     private JComboBox combo_LevelSelector;
     private JButton btn_solve;
-    //TODO Non Hardcoded
-    private static String dir_path="/home/micron/sav/Trabalhos/2021-2022/2ºSemestre/Inteligencia_artificial/Projeto/IA_Projeto_2191747_2191191/IA_2022/IA_Projeto_2191747_2191191/niveis";
+    /*
+    @todo add a directory picker
+    @body maybe one that enables either picking an entire directory with a selectionable combobox or a just a file
+     */
+    private static String dir_path="/home/micron/sav/Trabalhos/2021-2022/2ºSemestre/Inteligencia_artificial/IA_2022/IA_Projeto_2191747_2191191/niveis";
     public PreRuntimeSettingsMenu(Main context) {
         super("Temple Maze Solver Ainet 2022");
         preRuntime = new JFrame();
@@ -28,7 +31,6 @@ public class PreRuntimeSettingsMenu extends JFrame{
 
         area_Pre.setAlignmentX(0.5f);
         area_Pre.setAlignmentY(0f);
-        //area_Pre.setPreferredSize(preRuntime.getSize());
 
 
         combo_LevelSelector = new JComboBox();
@@ -36,7 +38,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
         combo_LevelSelector.setPreferredSize(new Dimension(400,32));
         combo_LevelSelector.setAlignmentX(0);
 
-        //combo_LevelSelector.setLocation(32,32);
+
         File dir = new File(dir_path);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -45,9 +47,10 @@ public class PreRuntimeSettingsMenu extends JFrame{
             }
 
         } else {
-
-
-            //TODO line 10
+            /*
+            @todo Fix case dir_path does not exist or is not readable
+            @body line 52 PreRuntimeSettingsMenu
+             */
         }
 
 
@@ -57,7 +60,10 @@ public class PreRuntimeSettingsMenu extends JFrame{
         btn_solve.setAlignmentX(1);
 
         btn_solve.addActionListener(e -> {
-            //TODO bad dir'ing
+            /*
+            @todo Fix bad dir'ing
+            @body 65 PreRuntimeSettingsMenu
+             */
             String toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
             try{
                 Main.removeAllStates();
