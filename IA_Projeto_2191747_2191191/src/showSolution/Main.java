@@ -41,7 +41,7 @@ import java.util.List;
  
 public class Main {
 	public static boolean flagBoolean;
-	public static final int levelCharSize=181;
+	public static final int levelCharSize=200;
 	private GameArea gameArea;
 	private static LinkedList<String> lista;
 	private static JFrame context;
@@ -68,11 +68,12 @@ public class Main {
 	public static void removeAllStates(){
 		lista.removeIf(s->s!="");
 	}
+	
 	public static void addState(String state){
-		if(state.length()!=levelCharSize){
+		/*if(state.length()!=levelCharSize){
 			System.err.println("State size mismatch with the supposed theoretical size");
 			return;
-		}
+		}*/
 		byte StairsPresent=0;
 		GameArea.state[] possibleStates= GameArea.state.values();
 		for (char c: state.toCharArray()) {
