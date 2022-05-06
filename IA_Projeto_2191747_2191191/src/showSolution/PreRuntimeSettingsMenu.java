@@ -15,15 +15,12 @@ public class PreRuntimeSettingsMenu extends JFrame{
     private JButton btn_dir;
     private JButton btn_solve;
     private String toopen="";
-    // TODO [#24]: add a directory picker
-    // Body: maybe one that enables either picking an entire directory with a selectionable combobox or a just a file
-    private static String dir_path="../IA_Projeto_2191747_2191191/niveis";
+    private static String dir_path="./IA_Projeto_2191747_2191191/niveis";
     public PreRuntimeSettingsMenu(Main context) {
         super("Temple Maze Solver Ainet 2022");
         preRuntime = new JFrame();
         preRuntime.setSize(600,600);
         preRuntime.setLocationRelativeTo(null);
-        //preRuntime.setBounds(0, 0, 500, 500);
 
         preRuntime.setLayout(new BorderLayout());
 
@@ -37,6 +34,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
         dir_chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         dir_chooser.addActionListener(e->{
             if(dir_chooser.getSelectedFile().isDirectory()){
+				toopen="";
                 System.out.println("stuff");
                 dir_path=dir_chooser.getSelectedFile().getAbsolutePath();
                 combo_LevelSelector.removeAllItems();
@@ -51,8 +49,8 @@ public class PreRuntimeSettingsMenu extends JFrame{
                 combo_LevelSelector.enableInputMethods(false);
 
             }else{
-                System.out.println("stuff3");
-                //Cancel and other actions
+                // TODO: Catch exception/state after failure in picking a file
+                // Body: Basically if a user clicks on path button to choose a file/directory, but after the window pops up he decides to cancel it throws a exception which must be handled
             }
         });
         btn_dir = new JButton("Path");
@@ -62,9 +60,6 @@ public class PreRuntimeSettingsMenu extends JFrame{
         btn_dir.addActionListener(e->{
             dir_chooser.showOpenDialog(new JPanel());
         });
-        /*dir_chooser.setMinimumSize(new Dimension(100,32));
-        dir_chooser.setPreferredSize(new Dimension(100,32));*/
-        //dir_chooser.setAlignmentX(0);
 
         combo_LevelSelector = new JComboBox();
         combo_LevelSelector.setMinimumSize(new Dimension(300,32));
@@ -79,12 +74,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
         btn_solve.setAlignmentX(1);
 
         btn_solve.addActionListener(e -> {
-            
-            // TODO [#26]: Fix bad dir'ing
-			// Body: 65 PreRuntimeSettingsMenu
-            System.out.println("kakes2");
-            if(toopen.isEmpty()|| toopen==null){
-                System.out.println("kakes");
+            if(toopen.isEmpty()){
                 toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
                 System.out.println(toopen);
             }
@@ -92,12 +82,15 @@ public class PreRuntimeSettingsMenu extends JFrame{
                 Main.removeAllStates();
                 File fl_toopen = new File(toopen);
                 FileReader fl_r= new FileReader(fl_toopen);
-                char[] t = new char[Main.levelCharSize];
+                toopen="";
+				char[] t = new char[Main.levelCharSize];
                 fl_r.read(t);
                 String content = String.valueOf(t);
+				fl_r.close();
                 System.out.println(content);
                 Main.addState(content);
                 context.showState(context.getStates_cloned().getFirst());
+				
 
             }catch (Exception k){
                 System.err.println(k.getMessage());

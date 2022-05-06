@@ -85,7 +85,7 @@ public class Main {
 		lista.add(state);
 	}
 	public LinkedList<String> getStates_cloned(){
-		return new LinkedList<>(lista);
+		return (LinkedList<String>)lista.clone();
 	}
 	public void showSolution(final List<String> states, final double solutionCost){
 		drawBoard();
