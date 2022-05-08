@@ -52,7 +52,7 @@ public class PreRuntimeSettingsMenu extends JFrame{
                 combo_LevelSelector.enableInputMethods(false);
 
             }else{
-                // TODO [$6277ddf6c32cd6000a522e1e]: Catch exception/state after failure in picking a file
+                // TODO [#29]: Catch exception/state after failure in picking a file
                 // Body: Basically if a user clicks on path button to choose a file/directory, but after the window pops up he decides to cancel it throws a exception which must be handled
             }
         });
