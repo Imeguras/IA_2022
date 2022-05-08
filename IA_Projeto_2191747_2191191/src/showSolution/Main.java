@@ -76,9 +76,10 @@ public class Main {
 	public static void removeAllStates(){
 		lista.removeIf(s->s!="");
 	}
+	
 	public static void addState(String state){
 		if(state.length()!=levelCharSize){
-			System.err.println("State size mismatch with the supposed theoretical size");
+			System.out.println("Warning: State size mismatch with the supposed theoretical size");
 			return;
 		}
 		byte StairsPresent=0;
@@ -93,7 +94,7 @@ public class Main {
 		lista.add(state);
 	}
 	public LinkedList<String> getStates_cloned(){
-		return new LinkedList<>(lista);
+		return (LinkedList<String>)lista.clone();
 	}
 	public void showSolution(final List<String> states, final double solutionCost){
 		drawBoard();
