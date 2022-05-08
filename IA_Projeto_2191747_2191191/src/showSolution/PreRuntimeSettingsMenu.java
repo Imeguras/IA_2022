@@ -15,9 +15,12 @@ public class PreRuntimeSettingsMenu extends JFrame{
     private JButton btn_dir;
     private JButton btn_solve;
     private String toopen="";
+	private Configuration conf;
     private static String dir_path="./IA_Projeto_2191747_2191191/niveis";
     public PreRuntimeSettingsMenu(Main context) {
         super("Temple Maze Solver Ainet 2022");
+		conf= new Configuration("app.config");
+		dir_path=conf.getDefaultDir();
         preRuntime = new JFrame();
         preRuntime.setSize(600,600);
         preRuntime.setLocationRelativeTo(null);
@@ -83,7 +86,8 @@ public class PreRuntimeSettingsMenu extends JFrame{
                 File fl_toopen = new File(toopen);
                 FileReader fl_r= new FileReader(fl_toopen);
                 toopen="";
-				char[] t = new char[Main.levelCharSize];
+				System.out.println("Detected file size: "+fl_toopen.length());
+				char[] t = new char[(int)fl_toopen.length()];
                 fl_r.read(t);
                 String content = String.valueOf(t);
 				fl_r.close();
