@@ -83,9 +83,9 @@ public class Main {
 			return;
 		}
 		byte StairsPresent=0;
-		GameArea.state[] possibleStates= GameArea.state.values();
+		GameArea.state_abst[] possibleStates= GameArea.state_abst.values();
 		for (char c: state.toCharArray()) {
-			if(!Arrays.stream(GameArea.state.values()).anyMatch(k->(k.getValue()==c?true:false))){
+			if(!Arrays.stream(GameArea.state_abst.values()).anyMatch(k->(k.getValue()==c?true:false))){
 				System.err.println("Invalid state: " + c);
 				return;
 			}

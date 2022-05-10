@@ -1,4 +1,5 @@
 package showSolution;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,7 +12,7 @@ import javax.swing.JPanel;
 
 public class GameArea extends JPanel {
 
-	enum state{
+	public enum state_abst{
 		WALL_HORIZONTAL('-'),
 		DOOR_HORIZONTAL_CLOSED('='),
 		DOOR_HORIZONTAL_OPENED('_'),
@@ -34,8 +35,11 @@ public class GameArea extends JPanel {
 		public char getValue() {
 			return this.encodingValue;
 		}
-		state(char encodingValue){
+		state_abst(char encodingValue){
 			this.encodingValue=encodingValue;
+		}
+		public static state_abst getCorChar(char f){
+			return (state_abst)Arrays.stream(values()).filter(k->(k.getValue()==f)).toArray()[0];
 		}
 	}
 	private Image trap;
@@ -46,7 +50,7 @@ public class GameArea extends JPanel {
 	private Image stairsLeft;
 	private Image scorpion;
 	private Image hero;
-	private Image beackground;
+	private Image background;
 	private Image mummyWhite;
 	private Image mummyRed;
 	private Image wallHorizontal;
@@ -79,7 +83,7 @@ public class GameArea extends JPanel {
 		stairsLeft = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/escadaEsquerda.png"));
 		scorpion = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/escorpiao.png"));
 		hero = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/explorador.png"));
-		beackground = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/fundo.png"));
+		background = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/fundo.png"));
 		mummyWhite = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/mumiaBranca.png"));
 		mummyRed = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/mumiaVermelha.png"));
 		wallHorizontal = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/paredeHorizontal.png"));
@@ -93,7 +97,7 @@ public class GameArea extends JPanel {
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		g.drawImage(beackground,0,0,this);
+		g.drawImage(background,0,0,this);
 		
 		if(state == null){
 			return;

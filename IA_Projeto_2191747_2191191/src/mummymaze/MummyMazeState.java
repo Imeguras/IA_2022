@@ -12,23 +12,26 @@ public class MummyMazeState extends WhiteMummyState implements Cloneable
     //Define goal matrix/state as a winnable state (hero on top of exit)
     public static final int SIZE = 13;
     //String state = GameArea.state;
-    private GameArea.state state_matrix[][];
+    private GameArea.state_abst state_matrix[][];
     private int lineBlank;
     private int columnBlank;
     private int hero_line;
     private int hero_column;
 
-    public MummyMazeState(String matrix, GameArea ga)
+    public MummyMazeState(String matrix)
     {
-        this.state_matrix = new GameArea.state[SIZE][SIZE];
+        this.state_matrix = new GameArea.state_abst[SIZE][SIZE];
         int f=0;
         for (int i = 0; i < getNumLines(); i++)
         {
             for (int j = 0; j < getNumColumns(); j++)
             {
                 f++;
-                GameArea.state state = Arrays.stream(GameArea.state.values()).anyMatch(k->(k.getValue() == matrix.charAt(f)));
-                System.out.println(this.state_matrix[i][j].getValue());
+				
+				GameArea.state_abst CharAbstraction = GameArea.state_abst.getCorChar(matrix.charAt(f));
+				System.out.print(CharAbstraction);
+                //Todo tens agora de prencher a matriz com isto
+				//System.out.println(this.state_matrix[i][j].getValue());
             }
         }
     }

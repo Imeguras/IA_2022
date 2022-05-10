@@ -26,15 +26,17 @@ public class MummyMazeAgent extends agent.WhiteMummyAgent<MummyMazeState>
     {
         java.util.Scanner scanner = new java.util.Scanner(file);
 
-        char[][] matrix = new char[13][13];
+        //char[][] matrix = new char[13][13];
         
-        for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i < 3; i++)
         {
             String s = scanner.nextLine();
             matrix[i] = s.toCharArray();
-        }
+        }*/
 
-        initialEnvironment = new MummyMazeState(matrix);
+
+		//Tens de lhe passar um estado em string do ficheiro que esta escolhido na combobox(NAO USAR O BOTAO PREVIEW)
+        initialEnvironment = new MummyMazeState("");
         resetEnvironment();
         return environment;
     }
