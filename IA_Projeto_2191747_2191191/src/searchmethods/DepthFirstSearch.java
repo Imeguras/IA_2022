@@ -2,7 +2,7 @@ package searchmethods;
 
 import agent.Problem;
 import agent.Solution;
-import agent.WhiteMummyState;
+import agent.State;
 import utils.NodeLinkedList;
 
 public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
@@ -22,9 +22,9 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
         while(!frontier.isEmpty() && !stopped)
         {
             Node n = frontier.poll();
-            WhiteMummyState whiteMummyState = n.getState();
+            State state = n.getState();
 
-            if(problem.isGoal(whiteMummyState))
+            if(problem.isGoal(state))
             {
                 return new Solution(problem, n);
             }
@@ -34,7 +34,7 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
     }
 
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent)
+    public void addSuccessorToFrontier(State successor, Node parent)
     {
         //TODO
         if(!frontier.containsState(successor))

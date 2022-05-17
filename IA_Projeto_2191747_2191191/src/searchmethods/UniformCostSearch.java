@@ -1,6 +1,6 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 import utils.NodePriorityQueue;
 
 public class UniformCostSearch extends GraphSearch<NodePriorityQueue>
@@ -12,7 +12,7 @@ public class UniformCostSearch extends GraphSearch<NodePriorityQueue>
     
     // f = g
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent)
+    public void addSuccessorToFrontier(State successor, Node parent)
     {
         //Parent cost + cost of the successor
         double g = parent.getG() + successor.getAction().getCost();

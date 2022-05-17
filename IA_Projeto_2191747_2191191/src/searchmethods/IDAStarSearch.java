@@ -2,7 +2,7 @@ package searchmethods;
 
 import agent.Problem;
 import agent.Solution;
-import agent.WhiteMummyState;
+import agent.State;
 
 public class IDAStarSearch extends InformedSearch {
     /*
@@ -31,7 +31,7 @@ public class IDAStarSearch extends InformedSearch {
     }
 
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent)
+    public void addSuccessorToFrontier(State successor, Node parent)
     {
             double g = parent.getG() + successor.getAction().getCost();
             if (!frontier.containsState(successor)) {

@@ -1,13 +1,13 @@
 package utils;
 
-import agent.WhiteMummyState;
+import agent.State;
 import java.util.HashMap;
 import java.util.LinkedList;
 import searchmethods.Node;
 
 public class NodeLinkedList extends LinkedList<Node> implements NodeCollection {
 
-    private final HashMap<WhiteMummyState, Node> contents;
+    private final HashMap<State, Node> contents;
 
     public NodeLinkedList() {
         super();
@@ -84,15 +84,15 @@ public class NodeLinkedList extends LinkedList<Node> implements NodeCollection {
     }
 
     @Override
-    public boolean containsState(WhiteMummyState e) {
+    public boolean containsState(State e) {
         return contents.containsKey(e);
     }
 
-    public Node getNo(WhiteMummyState e) {
+    public Node getNo(State e) {
         return contents.get(e);
     }
 
-    public boolean removeNo(WhiteMummyState e) {
+    public boolean removeNo(State e) {
         return remove(contents.get(e));
     }
 }

@@ -1,17 +1,17 @@
 package utils;
 
-import agent.WhiteMummyState;
+import agent.State;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import searchmethods.Node;
 
 public class NodePriorityQueue extends PriorityQueue<Node> implements NodeCollection {
 
-    private final HashMap<WhiteMummyState, Node> contents;
+    private final HashMap<State, Node> contents;
 
     public NodePriorityQueue() {
         super();
-        contents = new HashMap<WhiteMummyState, Node>(128);
+        contents = new HashMap<State, Node>(128);
     }
 
     @Override
@@ -50,15 +50,15 @@ public class NodePriorityQueue extends PriorityQueue<Node> implements NodeCollec
     }    
     
     @Override
-    public boolean containsState(WhiteMummyState e) {
+    public boolean containsState(State e) {
         return contents.containsKey(e);
     }
 
-    public Node getNode(WhiteMummyState e) {
+    public Node getNode(State e) {
         return contents.get(e);
     }
 
-    public boolean removeNode(WhiteMummyState e) {
+    public boolean removeNode(State e) {
         return remove(contents.get(e));
     }
 }

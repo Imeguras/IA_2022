@@ -1,10 +1,10 @@
 package agent;
 
-public abstract class WhiteMummyState
+public abstract class State
 {
     protected Action action;
 
-    public WhiteMummyState(){}
+    public State(){}
 
     public abstract void executeAction(Action action);
     

@@ -1,6 +1,6 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 import utils.NodeLinkedList;
 
 public class BreadthFirstSearch extends GraphSearch<NodeLinkedList>
@@ -10,7 +10,7 @@ public class BreadthFirstSearch extends GraphSearch<NodeLinkedList>
     }
 
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent)
+    public void addSuccessorToFrontier(State successor, Node parent)
     {
         if(!explored.contains(successor) && !frontier.containsState(successor))
         {

@@ -1,7 +1,7 @@
 package agent;
 
 
-public abstract class Action <S extends WhiteMummyState>{
+public abstract class Action <S extends State>{
     private final double cost;
 
     public Action(double cost){

@@ -1,39 +1,65 @@
 package mummymaze;
 
 import agent.Action;
-import agent.WhiteMummyState;
-import showSolution.GameArea;
+import agent.State;
+import gui.GameArea;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MummyMazeState extends WhiteMummyState implements Cloneable
+public class MummyMazeState extends State implements Cloneable
 {
-    //Define goal matrix/state as a winnable state (hero on top of exit)
     public static final int SIZE = 13;
-    //String state = GameArea.state;
-    private GameArea.state_abst state_matrix[][];
-    private int lineBlank;
-    private int columnBlank;
+
+    private char[][] matrix;
+
     private int hero_line;
     private int hero_column;
+    private int exit_line;
+    private int exit_column;
+
+    public MummyMazeState(char[][] matrix)
+    {
+        this.matrix = new char[SIZE][SIZE];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                this.matrix[i][j] = matrix[i][j];
+                if (matrix[i][j] == 'H') {
+                    hero_line = i;
+                    hero_column = j;
+                }
+            }
+        }
+    }
 
     public MummyMazeState(String matrix)
     {
-        this.state_matrix = new GameArea.state_abst[SIZE][SIZE];
-        int f=0;
-        for (int i = 0; i < getNumLines(); i++)
+        this.matrix = new char[SIZE][SIZE];
+        String[] matrixLines = matrix.split("\n");
+
+        for (int i = 0; i < SIZE; i++)
         {
-            for (int j = 0; j < getNumColumns(); j++)
+            for (int j = 0; j < SIZE; j++)
             {
-                f++;
-				
-				GameArea.state_abst CharAbstraction = GameArea.state_abst.getCorChar(matrix.charAt(f));
-				System.out.print(CharAbstraction);
-                //Todo tens agora de prencher a matriz com isto
-				//System.out.println(this.state_matrix[i][j].getValue());
+                this.matrix[i][j] = matrixLines[i].charAt(j);
+                if (this.matrix[i][j] == 'H') {
+                    hero_line = i;
+                    hero_column = j;
+                }
+                if(this.matrix[i][j] == 'S')
+                {
+                    exit_line = i;
+                    exit_column = j;
+                }
             }
         }
+
+        if(hero_line == exit_line && hero_column == exit_column)
+        {
+            //passed the level
+            System.out.println("Level passed");
+        }
+        System.out.println(matrix);
     }
 
     @Override
@@ -43,107 +69,145 @@ public class MummyMazeState extends WhiteMummyState implements Cloneable
         firePuzzleChanged(null);
     }
 
-    //Validate "goal state": a state where the hero is on top of the stairs
-    public void validateIfLevelHasBeenPassed()
-    {
-
-    }
-
     public boolean canMoveUp()
     {
-        return lineBlank != 0;
-    }
+        //If the tile next to hero on the right is a vertical wall (|) or
+        // closed door (=) it cannot move
+        int block_above = hero_line - 2;
+        int space_above = hero_line - 1;
+        if(isValidPosition(block_above, hero_column))   //If the position exists on the matrix
+        {
+            //wall/door
+            if(matrix[space_above][hero_column] == GameArea.state_abst.WALL_HORIZONTAL.getValue() ||
+            matrix[space_above][hero_column] == GameArea.state_abst.DOOR_HORIZONTAL_CLOSED.getValue())
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
 
-    public boolean canMoveRight()
-    {
-        return columnBlank != matrix.length - 1;
+        return true;
     }
 
     public boolean canMoveDown()
     {
-        return lineBlank != matrix.length - 1;
+        //If the tile next to hero on the right is a vertical wall (|) or
+        // closed door (=) it cannot move
+        int block_below = hero_line + 2;
+        int space_below = hero_line + 1;
+        if(isValidPosition(block_below, hero_column))   //If the position exists on the matrix
+        {
+            //wall/door
+            if(matrix[space_below][hero_column] == GameArea.state_abst.WALL_HORIZONTAL.getValue() ||
+            matrix[space_below][hero_column] == GameArea.state_abst.DOOR_HORIZONTAL_CLOSED.getValue())
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public boolean canMoveLeft()
     {
-        return columnBlank != 0;
+        //If the tile next to hero on the right is a vertical wall (|) or
+        // closed door (=) it cannot move
+        int block_left = hero_column - 2;
+        int space_left = hero_column - 1;
+        if(isValidPosition(hero_line, block_left))   //If the position exists on the matrix
+        {
+            //wall/door
+            if(matrix[hero_line][space_left] == GameArea.state_abst.WALL_VERTICAL.getValue() ||
+            matrix[hero_line][space_left] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean canMoveRight()
+    {
+        //If the tile next to hero on the right is a vertical wall (|) or
+        // closed door (=) it cannot move
+        int block_right = hero_column + 2;
+        int space_right = hero_column + 1;
+        if(isValidPosition(hero_line, block_right))   //If the position exists on the matrix
+        {
+            //wall/door
+            if(matrix[hero_line][space_right] == GameArea.state_abst.WALL_VERTICAL.getValue() ||
+            matrix[hero_line][space_right] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void moveUp()
     {
-        matrix[lineBlank][columnBlank] = matrix[--lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
-    }
+        int block_above = hero_line - 2;
+        int space_above = hero_line - 1;
 
-    public void moveRight()
-    {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][++columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[block_above][hero_column] = 'H';
+        matrix[hero_line][hero_column] = '.';
+
+        hero_line = block_above;
     }
 
     public void moveDown()
     {
-        matrix[lineBlank][columnBlank] = matrix[++lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        int block_below = hero_line + 2;
+        int space_below = hero_line + 1;
+
+        matrix[block_below][hero_column] = 'H';
+        matrix[hero_line][hero_column] = '.';
+
+        hero_line = block_below;
     }
 
     public void moveLeft()
     {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][--columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        int block_left = hero_column - 2;
+        int space_left = hero_column - 1;
+
+        matrix[hero_line][block_left] = 'H';
+        matrix[hero_line][hero_column] = '.';
+
+        hero_column = block_left;
     }
 
-    //Heuristics
-    public double computeTilesOutOfPlace(MummyMazeState finalState)
+    public void moveRight()
     {
-        int h = 0;
-        for (int i = 0; i < this.matrix.length; i++)
-        {
-            for (int j = 0; j < this.matrix[0].length; j++)
-            {
-                if(this.matrix[i][j] != 0 && this.matrix[i][j] != finalState.matrix[i][j])
-                {
-                    h++;
-                }
-            }
-        }
+        int block_right = hero_column + 2;
+        int space_right = hero_column + 1;
 
-        return h;
+        matrix[hero_line][block_right] = 'H';
+        matrix[hero_line][hero_column] = '.';
+
+        hero_column = block_right;
     }
 
-    public double computeTileDistances(MummyMazeState finalState)
+    public char[][] getMatrix()
     {
-        int h = 0;
-
-        for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++)
-            {
-                if(this.matrix[i][j] != 0)
-                {
-                    //h += Math.abs(i - linesfinalMatrix[this.matrix[i][j]]) + Math.abs(j -
-                    //colsfinalMatrix[this.matrix[i][j]]);
-                }
-            }
-        }
-
-        return h;
-    }
-
-    public double computeTileDistancesOptimized(MummyMazeState finalState)
-    {
-        int h = 0;
-
-        for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++)
-            {
-                if(this.matrix[i][j] != 0)
-                {
-
-                }
-            }
-        }
-
-        return h;
+        return this.matrix;
     }
 
     public int getNumLines() {
@@ -158,7 +222,7 @@ public class MummyMazeState extends WhiteMummyState implements Cloneable
         if (!isValidPosition(line, column)) {
             throw new IndexOutOfBoundsException("Invalid position!");
         }
-        return matrix[line][column];
+        return 0;//state_matrix[line][column];
     }
 
     public boolean isValidPosition(int line, int column) {
@@ -199,7 +263,7 @@ public class MummyMazeState extends WhiteMummyState implements Cloneable
 
     @Override
     public MummyMazeState clone() {
-        return new MummyMazeState(matrix);
+        return new MummyMazeState(this.matrix);
     }
 
     //Listeners

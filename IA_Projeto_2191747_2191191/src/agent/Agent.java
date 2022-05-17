@@ -1,18 +1,20 @@
 package agent;
 
 import java.util.ArrayList;
+
+import mummymaze.ActionDown;
 import searchmethods.*;
 
-public class WhiteMummyAgent<E extends WhiteMummyState>
+public class Agent<E extends State>
 {
     protected E environment;
     protected ArrayList<SearchMethod> searchMethods;
     protected SearchMethod searchMethod;
-    //protected ArrayList<Heuristic> heuristics;
-    //protected Heuristic heuristic;
+    protected ArrayList<Heuristic> heuristics;
+    protected Heuristic heuristic;
     protected Solution solution;
 
-    public WhiteMummyAgent(E environment)
+    public Agent(E environment)
     {
         this.environment = environment;
         searchMethods = new ArrayList<>();
@@ -26,7 +28,7 @@ public class WhiteMummyAgent<E extends WhiteMummyState>
         searchMethods.add(new BeamSearch());
         searchMethods.add(new IDAStarSearch());
         searchMethod = searchMethods.get(0);
-        //heuristics = new ArrayList<>();
+        heuristics = new ArrayList<>();
     }
 
     public Solution solveProblem(Problem problem)
@@ -37,6 +39,7 @@ public class WhiteMummyAgent<E extends WhiteMummyState>
             heuristic.setProblem(problem);
         }*/
         solution = searchMethod.search(problem);
+
         return solution;
     }
 
@@ -83,7 +86,7 @@ public class WhiteMummyAgent<E extends WhiteMummyState>
         this.searchMethod = searchMethod;
     }
 
-    /*public Heuristic[] getHeuristicsArray() {
+    public Heuristic[] getHeuristicsArray() {
         Heuristic[] sm = new Heuristic[heuristics.size()];
         return heuristics.toArray(sm);
     }
@@ -94,7 +97,7 @@ public class WhiteMummyAgent<E extends WhiteMummyState>
 
     public void setHeuristic(Heuristic heuristic) {
         this.heuristic = heuristic;
-    }*/
+    }
 
     public String getSearchReport() {
         StringBuilder sb = new StringBuilder();

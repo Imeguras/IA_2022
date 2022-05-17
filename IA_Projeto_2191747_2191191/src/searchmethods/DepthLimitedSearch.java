@@ -1,6 +1,6 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 
 public class DepthLimitedSearch extends DepthFirstSearch {
 
@@ -15,7 +15,7 @@ public class DepthLimitedSearch extends DepthFirstSearch {
     }
 
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent) {
+    public void addSuccessorToFrontier(State successor, Node parent) {
 
         //TODO
 

@@ -3,7 +3,7 @@ package searchmethods;
 import agent.Action;
 import agent.Problem;
 import agent.Solution;
-import agent.WhiteMummyState;
+import agent.State;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +12,7 @@ import utils.NodeCollection;
 public abstract class GraphSearch<L extends NodeCollection> implements SearchMethod {
 
     protected L frontier;
-    protected Set<WhiteMummyState> explored = new HashSet<>();
+    protected Set<State> explored = new HashSet<>();
     protected Statistics statistics = new Statistics();    
     protected boolean stopped;
 
@@ -45,18 +45,18 @@ public abstract class GraphSearch<L extends NodeCollection> implements SearchMet
         while(!frontier.isEmpty() && !stopped)
         {
             Node n = frontier.poll();
-            WhiteMummyState whiteMummyState = n.getState();
-            if(problem.isGoal(whiteMummyState))
+            State state = n.getState();
+            if(problem.isGoal(state))
             {
                 return new Solution(problem, n);
             }
-            explored.add(whiteMummyState);
+            explored.add(state);
 
-            List<Action> actions = problem.getActions(whiteMummyState);
+            List<Action> actions = problem.getActions(state);
 
             for(Action action : actions)
             {
-                WhiteMummyState successor = problem.getSuccessor(whiteMummyState, action);
+                State successor = problem.getSuccessor(state, action);
                 addSuccessorToFrontier(successor, n);
             }
             computeStatistics(actions.size());
@@ -64,7 +64,7 @@ public abstract class GraphSearch<L extends NodeCollection> implements SearchMet
         return null;
     }
 
-    public abstract void addSuccessorToFrontier(WhiteMummyState successor, Node parent);
+    public abstract void addSuccessorToFrontier(State successor, Node parent);
 
     protected void computeStatistics(int successorsSize)
     {

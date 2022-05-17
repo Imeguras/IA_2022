@@ -1,12 +1,12 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 
 public class AStarSearch extends InformedSearch {
 
     //f = g + h
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent) {
+    public void addSuccessorToFrontier(State successor, Node parent) {
 
         //TODO
         double g = parent.getG() + successor.getAction().getCost();

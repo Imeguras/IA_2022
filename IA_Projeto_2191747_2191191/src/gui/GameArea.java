@@ -1,4 +1,8 @@
-package showSolution;
+package gui;
+import mummymaze.MummyMazeEvent;
+import mummymaze.MummyMazeListener;
+import mummymaze.MummyMazeState;
+
 import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,7 +14,20 @@ import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
-public class GameArea extends JPanel {
+public class GameArea extends JPanel implements MummyMazeListener {
+
+	@Override
+	public void puzzleChanged(MummyMazeEvent pe) {
+		repaint();
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException ignore)
+		{
+
+		}
+	}
 
 	public enum state_abst{
 		WALL_HORIZONTAL('-'),
@@ -26,7 +43,6 @@ public class GameArea extends JPanel {
 		SCORPION('E'),
 		KEY('C'),
 		STAIRS('S'),
-		
 		WALKABLE('.'),
 		VOID(' '),
 		NEWLINE('\n');
@@ -62,16 +78,19 @@ public class GameArea extends JPanel {
 	
 	private int xStart = 63;
 	private int yStart = 79;
-	
-	private String state = null;
+
 	private boolean showSolutionCost;
 	private double solutionCost;
+
+	private MummyMazeState state;
 	
-	public GameArea(){
+	public GameArea(MummyMazeState state)
+	{
 		super();
 		setPreferredSize(new Dimension(486,474));
 		loadImages();
 		showSolutionCost = true;
+		this.state = state;
 	}
 	
 	private void loadImages(){
@@ -102,11 +121,12 @@ public class GameArea extends JPanel {
 		if(state == null){
 			return;
 		}
-		String[] splitString = (state.split("\\r?\\n"));
+		char[][] matrix = state.getMatrix();
 		
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 13; j++) {				
-				switch(splitString[i].charAt(j)) {
+				switch(matrix[i][j])
+				{
 					case '-' : g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '_' : g.drawImage(doorHorizontalOpen,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
@@ -132,8 +152,10 @@ public class GameArea extends JPanel {
 		
 	}
 	
-	public void setState(String state){
+	public void setState(MummyMazeState state){
+		this.state.removeListener(this);
 		this.state = state;
+		state.addListener(this);
 		repaint();		
 	}
 
@@ -144,5 +166,4 @@ public class GameArea extends JPanel {
 	public void setSolutionCost(double solutionCost){
 		this.solutionCost = solutionCost;
 	}
-
 }

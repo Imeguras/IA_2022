@@ -1,7 +1,7 @@
 package agent;
 
 
-public abstract class Heuristic <P extends Problem, S extends WhiteMummyState>{
+public abstract class Heuristic <P extends Problem, S extends State>{
     
     protected P problem;
 

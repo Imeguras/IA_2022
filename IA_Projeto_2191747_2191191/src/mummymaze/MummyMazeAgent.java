@@ -1,9 +1,11 @@
 package mummymaze;
 
+import agent.Agent;
+
 import java.io.File;
 import java.io.IOException;
 
-public class MummyMazeAgent extends agent.WhiteMummyAgent<MummyMazeState>
+public class MummyMazeAgent extends Agent<MummyMazeState>
 {
     protected MummyMazeState initialEnvironment;
     
@@ -11,9 +13,9 @@ public class MummyMazeAgent extends agent.WhiteMummyAgent<MummyMazeState>
     {
         super(environment);
         initialEnvironment = environment.clone();
-        //heuristics.add(new HeuristicTileDistance());
-        //heuristics.add(new HeuristicTilesOutOfPlace());
-        //heuristic = heuristics.get(0);
+        heuristics.add(new HeuristicTileDistance());
+        heuristics.add(new HeuristicTilesOutOfPlace());
+        heuristic = heuristics.get(0);
     }
             
     public MummyMazeState resetEnvironment()
@@ -26,17 +28,15 @@ public class MummyMazeAgent extends agent.WhiteMummyAgent<MummyMazeState>
     {
         java.util.Scanner scanner = new java.util.Scanner(file);
 
-        //char[][] matrix = new char[13][13];
+        char[][] matrix = new char[13][13];
         
-        /*for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 13; i++)
         {
             String s = scanner.nextLine();
             matrix[i] = s.toCharArray();
-        }*/
+        }
 
-
-		//Tens de lhe passar um estado em string do ficheiro que esta escolhido na combobox(NAO USAR O BOTAO PREVIEW)
-        initialEnvironment = new MummyMazeState("");
+        initialEnvironment = new MummyMazeState(matrix);
         resetEnvironment();
         return environment;
     }

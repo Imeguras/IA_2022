@@ -1,6 +1,6 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 
 public class BeamSearch extends AStarSearch {
 
@@ -15,7 +15,7 @@ public class BeamSearch extends AStarSearch {
     }
 
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent)
+    public void addSuccessorToFrontier(State successor, Node parent)
     {
         //TODO
 

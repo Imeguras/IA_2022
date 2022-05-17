@@ -1,12 +1,12 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 
 public class GreedyBestFirstSearch extends InformedSearch {
 
     //f = h
     @Override
-    public void addSuccessorToFrontier(WhiteMummyState successor, Node parent) {
+    public void addSuccessorToFrontier(State successor, Node parent) {
 
         //TODO
 

@@ -6,7 +6,7 @@ import mummymaze.MummyMazeState;
 
 import java.util.List;
 
-public abstract class Problem <S extends WhiteMummyState>{
+public abstract class Problem <S extends State>{
 
     public S InitialState;
     protected Heuristic heuristic;

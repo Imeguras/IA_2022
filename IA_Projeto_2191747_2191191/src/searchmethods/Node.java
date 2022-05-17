@@ -1,33 +1,33 @@
 package searchmethods;
 
-import agent.WhiteMummyState;
+import agent.State;
 
 public class Node implements Comparable<Node> {
 
-    private WhiteMummyState whiteMummyState;
+    private State state;
     private double cost;
     private double f;
     private Node parent;
     private int depth;
 
-    public Node(WhiteMummyState whiteMummyState) {
-        this.whiteMummyState = whiteMummyState;
+    public Node(State state) {
+        this.state = state;
     }
 
-    public Node(WhiteMummyState whiteMummyState, Node parent) {
-        this(whiteMummyState, parent, 0, 0);
+    public Node(State state, Node parent) {
+        this(state, parent, 0, 0);
     }    
     
-    public Node(WhiteMummyState whiteMummyState, Node parent, double cost, double f) {
-        this.whiteMummyState = whiteMummyState;
+    public Node(State state, Node parent, double cost, double f) {
+        this.state = state;
         this.cost = cost;
         this.f = f;
         this.parent = parent;
         this.depth = parent.depth + 1;
     }
 
-    public WhiteMummyState getState() {
-        return whiteMummyState;
+    public State getState() {
+        return state;
     }
 
     public double getG() {
@@ -51,10 +51,10 @@ public class Node implements Comparable<Node> {
         return (f < other.f) ? -1 : (f == other.f) ? 0 : 1;
     }
 
-    public boolean isCycle(WhiteMummyState whiteMummyState) {
+    public boolean isCycle(State state) {
         Node aux = this;
         do{
-            if (whiteMummyState.equals(aux.getState())) {
+            if (state.equals(aux.getState())) {
                 return true;
             }
             aux = aux.getParent();

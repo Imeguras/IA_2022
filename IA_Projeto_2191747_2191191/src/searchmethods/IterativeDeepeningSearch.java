@@ -3,7 +3,7 @@ package searchmethods;
 import agent.Action;
 import agent.Problem;
 import agent.Solution;
-import agent.WhiteMummyState;
+import agent.State;
 
 import java.util.List;
 
@@ -51,17 +51,17 @@ public class IterativeDeepeningSearch extends DepthFirstSearch
         while(!frontier.isEmpty() && !stopped)
         {
             Node n = frontier.poll();
-            WhiteMummyState whiteMummyState = n.getState();
+            State state = n.getState();
 
-            if(n.getDepth() - 1 == limit && problem.isGoal(whiteMummyState))
+            if(n.getDepth() - 1 == limit && problem.isGoal(state))
             {
                 return new Solution(problem, n);
             }
 
-            List<Action> actions = problem.getActions(whiteMummyState);
+            List<Action> actions = problem.getActions(state);
             for(Action action : actions)
             {
-                WhiteMummyState successor = problem.getSuccessor(whiteMummyState, action);
+                State successor = problem.getSuccessor(state, action);
                 addSuccessorToFrontier(successor, n);
             }
             computeStatistics(actions.size());
