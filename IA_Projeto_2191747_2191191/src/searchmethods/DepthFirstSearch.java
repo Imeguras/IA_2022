@@ -1,5 +1,7 @@
 package searchmethods;
 
+import java.util.List;
+
 import agent.Problem;
 import agent.Solution;
 import agent.State;
@@ -19,23 +21,28 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
         frontier.clear();
         frontier.add(new Node(problem.getInitialState()));
 
-        while(!frontier.isEmpty() && !stopped)
-        {
+        while(!frontier.isEmpty() && !stopped){
             Node n = frontier.poll();
             State state = n.getState();
 
-            if(problem.isGoal(state))
-            {
+            if(problem.isGoal(state)){
+				System.out.print("Final:\n"+state.toString());
                 return new Solution(problem, n);
             }
-        }
+			List<State> successors = problem.executeActions(n.getState());
+			addSuccessorsToFrontier(successors, n);
+            //frontier.add(suc)
+			//addSuccessorsToFrontier(successors, frontierNode);
 
+            //computeStatistics(successors.size());
+
+        }
+		
         return null;
     }
 
     @Override
-    public void addSuccessorToFrontier(State successor, Node parent)
-    {
+    public void addSuccessorToFrontier(State successor, Node parent){
         //TODO
         if(!frontier.containsState(successor))
         {
@@ -45,6 +52,11 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
             }
         }
     }
+	public void addSuccessorsToFrontier(List<State>  successors, Node parent){
+		for (State state : successors) {
+			addSuccessorToFrontier(state, parent);
+		}
+	}
 
     @Override
     public String toString() {

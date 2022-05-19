@@ -33,6 +33,7 @@ public class Agent<E extends State>
 
     public Solution solveProblem(Problem problem)
     {
+		
         /*if (heuristic != null)
         {
             problem.setHeuristic(heuristic);
@@ -49,6 +50,7 @@ public class Agent<E extends State>
         {
             environment.executeAction(action);
         }
+		
     }
 
     public boolean hasSolution()

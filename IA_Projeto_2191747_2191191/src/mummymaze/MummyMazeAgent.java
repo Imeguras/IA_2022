@@ -1,6 +1,7 @@
 package mummymaze;
 
 import agent.Agent;
+import gui.GameArea;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +25,11 @@ public class MummyMazeAgent extends Agent<MummyMazeState>
         return environment;
     }
                  
-    public MummyMazeState readInitialStateFromFile(File file) throws IOException
-    {
+    public MummyMazeState readInitialStateFromFile(File file) throws IOException{
         java.util.Scanner scanner = new java.util.Scanner(file);
 
         char[][] matrix = new char[13][13];
-        
+    
         for (int i = 0; i < 13; i++)
         {
             String s = scanner.nextLine();

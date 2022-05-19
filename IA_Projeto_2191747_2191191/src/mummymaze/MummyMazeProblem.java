@@ -59,12 +59,12 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     public void setActions(List<Action> actions) {
         this.actions = actions;
     }
-
+	//UNUSED!!!
     public MummyMazeState getGoalState()
     {
         return goalState;
     }
-
+	//UNUSED!!!
     public void setGoalState(MummyMazeState goalState) {
         this.goalState = goalState;
     }
@@ -77,9 +77,11 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         return successor;
     }
 
-    public boolean isGoal(MummyMazeState state)
-    {
-        return false;
+    public boolean isGoal(MummyMazeState state){
+        if(state.getHero_pos().compareTo(state.getExit_pos())==0){
+			return true; 
+		};
+		return false;
     }
 
     public double computePathCost(List<Action> path)

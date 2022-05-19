@@ -3,12 +3,13 @@ package mummymaze;
 import agent.Action;
 import agent.State;
 import gui.GameArea;
+import gui.PointDimension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MummyMazeState extends State implements Cloneable
-{
+public class MummyMazeState extends State implements Cloneable{
+	
     public static final int SIZE = 13;
 
     private char[][] matrix;
@@ -17,6 +18,13 @@ public class MummyMazeState extends State implements Cloneable
     private int hero_column;
     private int exit_line;
     private int exit_column;
+	
+	public PointDimension<Integer> getHero_pos(){
+		return new PointDimension<>(hero_line, hero_column);
+	}
+	public PointDimension<Integer> getExit_pos(){
+		return new PointDimension<>(exit_line, exit_column);
+	}
 
     public MummyMazeState(char[][] matrix)
     {
@@ -28,10 +36,14 @@ public class MummyMazeState extends State implements Cloneable
                     hero_line = i;
                     hero_column = j;
                 }
+				if(matrix[i][j] == 'S'){
+					exit_line=Math.max(1, Math.min(11, i));
+					exit_column=Math.max(1, Math.min(11, j));
+                }
             }
         }
     }
-
+	//TF ... REEE apaga/comenta se não usas fiquei bue confuso
     public MummyMazeState(String matrix)
     {
         this.matrix = new char[SIZE][SIZE];
@@ -46,14 +58,10 @@ public class MummyMazeState extends State implements Cloneable
                     hero_line = i;
                     hero_column = j;
                 }
-                if(this.matrix[i][j] == 'S')
-                {
-                    exit_line = i;
-                    exit_column = j;
-                }
+                
             }
         }
-
+		//Tolearn:tf?
         if(hero_line == exit_line && hero_column == exit_column)
         {
             //passed the level
@@ -168,7 +176,7 @@ public class MummyMazeState extends State implements Cloneable
 
         matrix[block_above][hero_column] = 'H';
         matrix[hero_line][hero_column] = '.';
-
+		
         hero_line = block_above;
     }
 

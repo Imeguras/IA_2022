@@ -25,4 +25,5 @@ public class Solution {
     public List<Action> getActions(){
         return actions;
     }
+	
 }
