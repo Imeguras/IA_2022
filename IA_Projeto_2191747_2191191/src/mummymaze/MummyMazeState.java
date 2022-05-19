@@ -43,6 +43,7 @@ public class MummyMazeState extends State implements Cloneable{
             }
         }
     }
+
 	//TF ... REEE apaga/comenta se não usas fiquei bue confuso
     public MummyMazeState(String matrix)
     {
@@ -58,7 +59,10 @@ public class MummyMazeState extends State implements Cloneable{
                     hero_line = i;
                     hero_column = j;
                 }
-                
+                if(this.matrix[i][j] == 'S'){
+                    exit_line=Math.max(1, Math.min(11, i));
+                    exit_column=Math.max(1, Math.min(11, j));
+                }
             }
         }
 		//Tolearn:tf?
