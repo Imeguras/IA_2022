@@ -1,15 +1,21 @@
 package gui;
 
+import agent.Agent;
 import agent.Heuristic;
 import agent.Solution;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,39 +36,43 @@ import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
+import utils.Configuration;
 
 public class MainFrame extends JFrame {
-
-    String initialStringState =
-            "             \n" +
-                    " . . . . .|. \n" +
-                    "     -       \n" +
-                    " . . . . . H \n" +
-                    "     -       \n" +
-                    " . . . .|. . \n" +
-                    "       -   - \n" +
-                    " . . . . .|. \n" +
-                    "   - -       \n" +
-                    " . . . . . . \n" +
-                    "         -   \n" +
-                    " . . . . . . \n" +
-                    " S           \n";
-
-    private MummyMazeAgent agent = new MummyMazeAgent(new MummyMazeState(initialStringState));
+    //
+	private MummyMazeAgent agent;// = new MummyMazeAgent(new MummyMazeState());
+	private JFileChooser fileChooser_dialog;
+	private JButton btnOpenFileDialog;
     private JComboBox comboBoxSearchMethods;
     private JComboBox comboBoxHeuristics;
-    private JLabel labelSearchParameter = new JLabel("limit/beam size:");
-    private JTextField textFieldSearchParameter = new JTextField("0", 5);
-    private JButton buttonInitialState = new JButton("Read initial state");
-    private JButton buttonSolve = new JButton("Solve");
-    private JButton buttonStop = new JButton("Stop");
-    private JButton buttonShowSolution = new JButton("Show solution");
-    private JButton buttonReset = new JButton("Reset to initial state");
+    private JLabel labelSearchParameter; 
+    private JTextField textFieldSearchParameter;
+    private JButton buttonInitialState; 
+	private JComboBox<String> combo_LevelSelector;
+    private JButton buttonSolve;
+    private JButton buttonStop;
+    private JButton buttonShowSolution;
+    private JButton buttonReset;
     private JTextArea textArea;
     private GameArea gameArea;
 
+	private Configuration conf;
+	private static String dir_path="./IA_Projeto_2191747_2191191/niveis";
+    private String toopen="";
 
     public MainFrame() {
+		agent= new MummyMazeAgent();
+		btnOpenFileDialog=new JButton("Path");
+		labelSearchParameter= new JLabel("limit/beam size:");
+		textFieldSearchParameter= new JTextField("0", 5);
+		buttonInitialState= new JButton("Preview Selected Level");
+		buttonSolve = new JButton("Solve Selected Level");
+		buttonStop = new JButton("Stop Solving");
+		buttonShowSolution= new JButton("Show solution");
+		buttonReset = new JButton("Reset to initial state");
+
+		conf= new Configuration("app.config");
+		dir_path=conf.getDefaultDir();
         try {
             jbInit();
         } catch (Exception e) {
@@ -73,47 +83,79 @@ public class MainFrame extends JFrame {
     private void jbInit() throws Exception {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Mummy Maze");
+        this.setTitle("Mummy Maze Solver");
+		fileChooser_dialog = new JFileChooser(dir_path);
 
-        JPanel contentPane = (JPanel) this.getContentPane();
+        fileChooser_dialog.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fileChooser_dialog.addActionListener(e->{
+			try {
+				filePicker_ActionBehaviour(e);
+			} catch (Exception filePickerException) {
+				System.out.println(filePickerException.getMessage());	
+			}
+			
+		});
+        
+		combo_LevelSelector = new JComboBox<String>();
+        combo_LevelSelector.setMinimumSize(new Dimension(150,32));
+        combo_LevelSelector.setPreferredSize(new Dimension(150,32));
+        populateDirComboBox();
+		//agent= new MummyMazeState();
+		buttonStop.setEnabled(false);
+		buttonShowSolution.setEnabled(false);
+		buttonReset.setEnabled(false);
+
+		JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new BorderLayout());
+
         JPanel panelButtons = new JPanel(new FlowLayout());
-        panelButtons.add(buttonInitialState);
-        buttonInitialState.addActionListener(new ButtonInitialState_ActionAdapter(this));
-        panelButtons.add(buttonSolve);
-        buttonSolve.addActionListener(new ButtonSolve_ActionAdapter(this));
-        panelButtons.add(buttonStop);
-        buttonStop.setEnabled(false);
-        buttonStop.addActionListener(new ButtonStop_ActionAdapter(this));
-        panelButtons.add(buttonShowSolution);
-        buttonShowSolution.setEnabled(false);
+
+		buttonSolve.addActionListener(new ButtonSolve_ActionAdapter(this));
+		buttonInitialState.addActionListener(new ButtonInitialState_ActionAdapter(this));
+		buttonStop.addActionListener(new ButtonStop_ActionAdapter(this));
         buttonShowSolution.addActionListener(new ButtonShowSolution_ActionAdapter(this));
-        panelButtons.add(buttonReset);
-        buttonReset.setEnabled(false);
         buttonReset.addActionListener(new ButtonReset_ActionAdapter(this));
+		btnOpenFileDialog.addActionListener(e->{
+            fileChooser_dialog.showOpenDialog(new JPanel());
+        });
+		
+        panelButtons.add(btnOpenFileDialog);
+		panelButtons.add(combo_LevelSelector); 
+		panelButtons.add(buttonInitialState);
+        panelButtons.add(buttonSolve);
+        panelButtons.add(buttonStop);
+		panelButtons.add(buttonShowSolution);
+		panelButtons.add(buttonReset);
+	
 
         JPanel panelSearchMethods = new JPanel(new FlowLayout());
-        comboBoxSearchMethods = new JComboBox(agent.getSearchMethodsArray());
-        panelSearchMethods.add(comboBoxSearchMethods);
-        comboBoxSearchMethods.addActionListener(new ComboBoxSearchMethods_ActionAdapter(this));
-        panelSearchMethods.add(labelSearchParameter);
-        labelSearchParameter.setEnabled(false);
-        panelSearchMethods.add(textFieldSearchParameter);
-        textFieldSearchParameter.setEnabled(false);
-        textFieldSearchParameter.setHorizontalAlignment(JTextField.RIGHT);
-        textFieldSearchParameter.addKeyListener(new TextFieldSearchParameter_KeyAdapter(this));
-        comboBoxHeuristics = new JComboBox(agent.getHeuristicsArray());
-        panelSearchMethods.add(comboBoxHeuristics);
-        comboBoxHeuristics.setEnabled(false);
-        comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
+		comboBoxHeuristics = new JComboBox<Heuristic>(Agent.heuristics_st);
+        comboBoxSearchMethods = new JComboBox<SearchMethod>(Agent.searchMethods_st);
+        
+		comboBoxSearchMethods.addActionListener(new ComboBoxSearchMethods_ActionAdapter(this));
+		textFieldSearchParameter.addKeyListener(new TextFieldSearchParameter_KeyAdapter(this));
+		comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
 
+		labelSearchParameter.setEnabled(false);
+		textFieldSearchParameter.setEnabled(false);
+		comboBoxHeuristics.setEnabled(false);
+
+		panelSearchMethods.add(comboBoxSearchMethods);
+		panelSearchMethods.add(labelSearchParameter);
+		panelSearchMethods.add(textFieldSearchParameter);
+        panelSearchMethods.add(comboBoxHeuristics);
+
+        textFieldSearchParameter.setHorizontalAlignment(JTextField.RIGHT);
+        
         JPanel puzzlePanel = new JPanel(new FlowLayout());
-        gameArea = new GameArea(agent.getEnvironment());
-        puzzlePanel.add(gameArea);
-        textArea = new JTextArea(15, 31);
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        gameArea = new GameArea();//agent.getEnvironment()
+		textArea = new JTextArea(15, 31);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+        
         textArea.setEditable(false);
+
         puzzlePanel.add(scrollPane);
+		puzzlePanel.add(gameArea);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(panelButtons, BorderLayout.NORTH);
@@ -123,45 +165,85 @@ public class MainFrame extends JFrame {
 
         pack();
     }
+	/*
+		@Summary Fill's the Directory/File Combobox with selectable levels
+		
+	*/
+	public void populateDirComboBox() throws IOException{
+		
+		File dir = new File(dir_path);
+		File[] directoryListing = dir.listFiles();
+		if (directoryListing != null) {
+			for (File child : directoryListing) {
+				combo_LevelSelector.addItem(child.getName());
+			}
 
-
+		} else {
+			throw new IOException("Either the directory/file doesn't exist, is empty or you lack permissions");
+		}
+    }
+	public void filePicker_ActionBehaviour(ActionEvent e) throws IOException{
+		
+			try {
+				if(fileChooser_dialog.getSelectedFile().isDirectory()){
+					toopen="";
+					
+					dir_path=fileChooser_dialog.getSelectedFile().getAbsolutePath();
+					combo_LevelSelector.removeAllItems();
+					combo_LevelSelector.enableInputMethods(true);
+					populateDirComboBox();
+				}else if(fileChooser_dialog.getSelectedFile().isFile()){
+					
+					toopen=fileChooser_dialog.getSelectedFile().getAbsolutePath();
+					combo_LevelSelector.removeAllItems();
+					combo_LevelSelector.addItem(toopen);
+					combo_LevelSelector.setSelectedItem(toopen);
+					combo_LevelSelector.enableInputMethods(false);
+	
+				}
+			} catch (IOException exc) {
+				throw exc;
+			}
+            
+        
+	}
     public void buttonInitialState_ActionPerformed(ActionEvent e) {
-        JFileChooser fc = new JFileChooser(new java.io.File("."));
-        try {
-            if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                gameArea.setState(agent.readInitialStateFromFile(fc.getSelectedFile()));
-                buttonSolve.setEnabled(true);
-                buttonShowSolution.setEnabled(false);
-                buttonReset.setEnabled(false);
-            }
-        } catch (IOException e1) {
-            e1.printStackTrace(System.err);
-        } catch (NoSuchElementException e2) {
-            JOptionPane.showMessageDialog(this, "File format not valid", "Error!", JOptionPane.ERROR_MESSAGE);
-        }
+		if(toopen.isEmpty()){
+			toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
+		}
+		try{
+			gameArea.setState(MummyMazeAgent.readStateFromFile(toopen));
+			toopen="";
+		}catch (Exception k){
+			System.err.println(k.getMessage());
+
+		}
     }
 
     public void comboBoxSearchMethods_ActionPerformed(ActionEvent e) {
         int index = comboBoxSearchMethods.getSelectedIndex();
-        agent.setSearchMethod((SearchMethod) comboBoxSearchMethods.getItemAt(index));
-        gameArea.setState(agent.resetEnvironment());
+
+        agent.setSearchMethod(Agent.searchMethods_st[index]);
+        //gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
-        textArea.setText("");
-        comboBoxHeuristics.setEnabled(index > 4); //Informed serch methods
+        //also here?
+		textArea.setText("");
+        comboBoxHeuristics.setEnabled(index>4); //Informed serch methods
         textFieldSearchParameter.setEnabled(index == 3 || index == 7); // limited depth or beam search
         labelSearchParameter.setEnabled(index == 3 || index == 7); // limited depth or beam search
     }
 
     public void comboBoxHeuristics_ActionPerformed(ActionEvent e) {
         int index = comboBoxHeuristics.getSelectedIndex();
-        agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));
-        gameArea.setState(agent.resetEnvironment());
+        agent.setHeuristic(Agent.heuristics_st[index]);
+        //gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
-        textArea.setText("");
+        //whats the point here?
+		textArea.setText("");
     }
 
     public void buttonSolve_ActionPerformed(ActionEvent e) {
@@ -172,7 +254,14 @@ public class MainFrame extends JFrame {
                 textArea.setText("");
                 buttonStop.setEnabled(true);
                 buttonSolve.setEnabled(false);
+				buttonInitialState.setEnabled(false);
+				btnOpenFileDialog.setEnabled(false);
+				if(toopen.isEmpty()){
+					toopen= dir_path+"/"+combo_LevelSelector.getSelectedItem().toString();
+				}
                 try {
+					agent.readInitialStateFromFile(toopen);
+					toopen="";
                     prepareSearchAlgorithm();
                     MummyMazeProblem problem = new MummyMazeProblem(agent.getEnvironment().clone());
                     agent.solveProblem(problem);
@@ -190,6 +279,8 @@ public class MainFrame extends JFrame {
                         buttonShowSolution.setEnabled(true);
                     }
                 }
+				buttonInitialState.setEnabled(true);
+				btnOpenFileDialog.setEnabled(true);
                 buttonSolve.setEnabled(true);
                 buttonStop.setEnabled(false);
             }
@@ -206,12 +297,16 @@ public class MainFrame extends JFrame {
     }
 
     public void buttonShowSolution_ActionPerformed(ActionEvent e) {
+		gameArea.setState(agent.resetEnvironment());
+        
         buttonShowSolution.setEnabled(false);
         buttonStop.setEnabled(false);
         buttonSolve.setEnabled(false);
         SwingWorker worker = new SwingWorker<Void, Void>() {
             @Override
             public Void doInBackground() {
+				
+				
                 agent.executeSolution();
                 buttonReset.setEnabled(true);
                 return null;

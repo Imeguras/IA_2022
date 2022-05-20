@@ -84,12 +84,16 @@ public class GameArea extends JPanel implements MummyMazeListener {
 
 	private MummyMazeState state;
 	
-	public GameArea(MummyMazeState state)
-	{
+
+	public GameArea(){
 		super();
 		setPreferredSize(new Dimension(486,474));
 		loadImages();
 		showSolutionCost = true;
+	}
+	public GameArea(MummyMazeState state)
+	{
+		this();
 		this.state = state;
 	}
 	
@@ -127,7 +131,7 @@ public class GameArea extends JPanel implements MummyMazeListener {
 			for(int j = 0; j < 13; j++) {				
 				switch(matrix[i][j])
 				{
-					case '-' : g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
+					case '-': g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '_' : g.drawImage(doorHorizontalOpen,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '|' : g.drawImage(wallVertical,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
@@ -153,7 +157,9 @@ public class GameArea extends JPanel implements MummyMazeListener {
 	}
 	
 	public void setState(MummyMazeState state){
-		this.state.removeListener(this);
+		if(this.state!= null){
+			this.state.removeListener(this);
+		}
 		this.state = state;
 		state.addListener(this);
 		repaint();		

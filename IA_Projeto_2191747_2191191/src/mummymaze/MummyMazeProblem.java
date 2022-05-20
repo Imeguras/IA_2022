@@ -76,7 +76,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         action.execute(successor);
         return successor;
     }
-
+	
     public boolean isGoal(MummyMazeState state){
         if(state.getHero_pos().compareTo(state.getExit_pos())==0){
 			return true; 

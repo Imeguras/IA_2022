@@ -26,8 +26,7 @@ public class MummyMazeState extends State implements Cloneable{
 		return new PointDimension<>(exit_line, exit_column);
 	}
 
-    public MummyMazeState(char[][] matrix)
-    {
+    public MummyMazeState(char[][] matrix){
         this.matrix = new char[SIZE][SIZE];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -45,8 +44,7 @@ public class MummyMazeState extends State implements Cloneable{
     }
 
 	//TF ... REEE apaga/comenta se não usas fiquei bue confuso
-    public MummyMazeState(String matrix)
-    {
+    public MummyMazeState(String matrix){
         this.matrix = new char[SIZE][SIZE];
         String[] matrixLines = matrix.split("\n");
 
@@ -65,15 +63,24 @@ public class MummyMazeState extends State implements Cloneable{
                 }
             }
         }
-		//Tolearn:tf?
-        if(hero_line == exit_line && hero_column == exit_column)
-        {
-            //passed the level
-            System.out.println("Level passed");
-        }
-        System.out.println(matrix);
     }
-
+	public MummyMazeState(String[] matrix){
+		this.matrix = new char[SIZE][SIZE];
+		for (int i = 0; i < SIZE; i++) {
+			for (int j = 0; j < SIZE; j++){
+				this.matrix[i][j]= matrix[i].charAt(j); 
+				if (this.matrix[i][j] == 'H') {
+                    hero_line = i;
+                    hero_column = j;
+                }
+                if(this.matrix[i][j] == 'S'){
+                    exit_line=Math.max(1, Math.min(11, i));
+                    exit_column=Math.max(1, Math.min(11, j));
+                }
+			}
+		}
+		
+	}
     @Override
     public void executeAction(Action action)
     {
@@ -193,6 +200,7 @@ public class MummyMazeState extends State implements Cloneable{
         matrix[hero_line][hero_column] = '.';
 
         hero_line = block_below;
+		
     }
 
     public void moveLeft()

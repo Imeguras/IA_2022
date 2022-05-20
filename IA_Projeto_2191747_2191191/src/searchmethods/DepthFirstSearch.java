@@ -26,7 +26,7 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
             State state = n.getState();
 
             if(problem.isGoal(state)){
-				System.out.print("Final:\n"+state.toString());
+				System.out.print("Solution Frame:\n"+state.toString());
                 return new Solution(problem, n);
             }
 			List<State> successors = problem.executeActions(n.getState());

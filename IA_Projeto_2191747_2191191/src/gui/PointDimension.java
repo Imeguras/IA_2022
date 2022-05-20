@@ -1,5 +1,9 @@
 package gui;
 
+import java.math.BigInteger;
+import java.util.Comparator;
+import java.util.LinkedList;
+
 public class PointDimension<T extends java.lang.Number> implements Comparable<PointDimension<T>>{
 
 	public T line;
@@ -8,7 +12,20 @@ public class PointDimension<T extends java.lang.Number> implements Comparable<Po
 		
 		this.line=line; 
 		this.col=col; 
+		
 	}
+	public void setPos(T NewLine, T NewColum){
+		line=NewLine;
+		col=NewColum;
+	}
+
+	public PointDimension<Integer> sum(PointDimension<Integer> toSum){
+		PointDimension<Integer> collector = new PointDimension<Integer>(0, 0);
+		collector.col= toSum.col+ this.col.intValue();
+		collector.line= toSum.line+ this.line.intValue();
+		return collector; 
+	}
+	
 	// @summary: Checks if the Point is equal to the other object, returns 0 if so, else it will return 1 in case the objects sum of decimal places is bigger than the one provided in o
 	@Override
 	public int compareTo(PointDimension<T> o) {

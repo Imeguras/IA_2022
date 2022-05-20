@@ -1,35 +1,46 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import mummymaze.ActionDown;
+import mummymaze.HeuristicTileDistance;
+import mummymaze.HeuristicTilesOutOfPlace;
 import searchmethods.*;
 
 public class Agent<E extends State>
 {
     protected E environment;
-    protected ArrayList<SearchMethod> searchMethods;
+	public static SearchMethod[] searchMethods_st={
+			new BreadthFirstSearch(),
+			new UniformCostSearch(),
+        	new DepthFirstSearch(),
+        	new DepthLimitedSearch(),
+        	new IterativeDeepeningSearch(),
+        	new GreedyBestFirstSearch(),
+        	new AStarSearch(),
+        	new BeamSearch(),
+        	new IDAStarSearch()
+	};
+	public static Heuristic[] heuristics_st={
+		new HeuristicTileDistance(),
+		new HeuristicTilesOutOfPlace()
+	};
+    //protected ArrayList<SearchMethod> searchMethods;
     protected SearchMethod searchMethod;
-    protected ArrayList<Heuristic> heuristics;
+    //protected ArrayList<Heuristic> heuristics;
     protected Heuristic heuristic;
     protected Solution solution;
 
     public Agent(E environment)
     {
-        this.environment = environment;
-        searchMethods = new ArrayList<>();
-        searchMethods.add(new BreadthFirstSearch());
-        searchMethods.add(new UniformCostSearch());
-        searchMethods.add(new DepthFirstSearch());
-        searchMethods.add(new DepthLimitedSearch());
-        searchMethods.add(new IterativeDeepeningSearch());
-        searchMethods.add(new GreedyBestFirstSearch());
-        searchMethods.add(new AStarSearch());
-        searchMethods.add(new BeamSearch());
-        searchMethods.add(new IDAStarSearch());
-        searchMethod = searchMethods.get(0);
-        heuristics = new ArrayList<>();
+		this();
+		this.environment = environment;
+        
     }
+	public Agent(){
+		searchMethod = searchMethods_st[0];
+	}
 
     public Solution solveProblem(Problem problem)
     {
@@ -46,8 +57,7 @@ public class Agent<E extends State>
 
     public void executeSolution()
     {
-        for(Action action : solution.getActions())
-        {
+        for(Action action : solution.getActions()){
             environment.executeAction(action);
         }
 		
@@ -74,23 +84,12 @@ public class Agent<E extends State>
         this.environment = environment;
     }
 
-    public SearchMethod[] getSearchMethodsArray() {
-        SearchMethod[] sm = new SearchMethod[searchMethods.size()];
-        return searchMethods.toArray(sm);
-    }
-
     public SearchMethod getSearchMethod() {
         return searchMethod;
     }
 
-    public void setSearchMethod(SearchMethod searchMethod)
-    {
+    public void setSearchMethod(SearchMethod searchMethod){
         this.searchMethod = searchMethod;
-    }
-
-    public Heuristic[] getHeuristicsArray() {
-        Heuristic[] sm = new Heuristic[heuristics.size()];
-        return heuristics.toArray(sm);
     }
 
     public Heuristic getHeuristic() {
