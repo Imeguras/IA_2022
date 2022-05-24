@@ -16,17 +16,11 @@ public class IDAStarSearch extends InformedSearch {
     public Solution search(Problem problem) {
         statistics.reset();        
         stopped = false;
-
-        //TODO
-
         return null;
     }
 
     @Override
     protected Solution graphSearch(Problem problem) {
-
-        //TODO
-
         return null;
     }
 

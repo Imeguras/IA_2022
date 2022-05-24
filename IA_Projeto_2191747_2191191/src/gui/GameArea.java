@@ -125,11 +125,11 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		if(state == null){
 			return;
 		}
-		char[][] matrix = state.getMatrix();
+		state_abst[][] matrix = state.getMatrix();
 		
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 13; j++) {				
-				switch(matrix[i][j])
+				switch(matrix[i][j].getValue())
 				{
 					case '-': g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;

@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -12,28 +11,28 @@ import javax.swing.UnsupportedLookAndFeelException;
 // Body: as said tittle
  
 
-// TODO [#17]: add regular mummy behaviour
+// TODO [#17]: add regular mummy behavior
 // Body: they should move twice per turn, after the hero and they should try to be on the same Y as the hero and then the same X
  
 
 
-// TODO [#18]: add red mummy behaviour
+// TODO [#18]: add red mummy behavior
 // Body: they should move twice per turn, after the regular mummy and they should try to be on the same X as the hero and then the same Y
  
 
-// TODO [#19]: add scorpions behaviour
-// Body: they should move once per turn, after the red mummies are done, they have the same behaviour as the regular mummy
+// TODO [#19]: add scorpions behavior
+// Body: they should move once per turn, after the red mummies are done, they have the same behavior as the regular mummy
  
 
-// TODO [#20]: add key behaviour
+// TODO [#20]: add key behavior
 // Body: they should open gates once the hero stands
  
 
-// TODO [#21]: death square behaviour
+// TODO [#21]: death square behavior
 // Body: although mummies and other env. stuff can stay on it, hero's cant
  
 
-// TODO [#22]: fighting behaviour
+// TODO [#22]: fighting behavior
 // Body: if two hostile entities stay on the same tile they should kill one in order for the level to have a solution
  
 

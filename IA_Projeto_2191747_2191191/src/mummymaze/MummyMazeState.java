@@ -4,6 +4,7 @@ import agent.Action;
 import agent.State;
 import gui.GameArea;
 import gui.PointDimension;
+import gui.GameArea.state_abst;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,7 @@ public class MummyMazeState extends State implements Cloneable{
 	
     public static final int SIZE = 13;
 
-    private char[][] matrix;
+    private GameArea.state_abst[][] matrix;
 
     private int hero_line;
     private int hero_column;
@@ -26,61 +27,42 @@ public class MummyMazeState extends State implements Cloneable{
 		return new PointDimension<>(exit_line, exit_column);
 	}
 
-    public MummyMazeState(char[][] matrix){
-        this.matrix = new char[SIZE][SIZE];
+    public MummyMazeState(char[][] char_matrix){
+        this.matrix = new state_abst[SIZE][SIZE];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                this.matrix[i][j] = matrix[i][j];
-                if (matrix[i][j] == 'H') {
+                this.matrix[i][j] = state_abst.getCorChar(char_matrix[i][j]);
+                if (matrix[i][j] == state_abst.HERO) {
                     hero_line = i;
                     hero_column = j;
                 }
-				if(matrix[i][j] == 'S'){
+				if(matrix[i][j] == state_abst.STAIRS){
 					exit_line=Math.max(1, Math.min(11, i));
 					exit_column=Math.max(1, Math.min(11, j));
+					
                 }
             }
         }
     }
-
-	//TF ... REEE apaga/comenta se não usas fiquei bue confuso
-    public MummyMazeState(String matrix){
-        this.matrix = new char[SIZE][SIZE];
-        String[] matrixLines = matrix.split("\n");
-
-        for (int i = 0; i < SIZE; i++)
-        {
-            for (int j = 0; j < SIZE; j++)
-            {
-                this.matrix[i][j] = matrixLines[i].charAt(j);
-                if (this.matrix[i][j] == 'H') {
+	public MummyMazeState(state_abst[][] cloned_matrix){
+		this.matrix = new state_abst[SIZE][SIZE];
+		//this.matrix= cloned_matrix;
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				this.matrix[i][j] = cloned_matrix[i][j];
+				if (matrix[i][j] == state_abst.HERO) {
                     hero_line = i;
                     hero_column = j;
                 }
-                if(this.matrix[i][j] == 'S'){
-                    exit_line=Math.max(1, Math.min(11, i));
-                    exit_column=Math.max(1, Math.min(11, j));
-                }
-            }
-        }
-    }
-	public MummyMazeState(String[] matrix){
-		this.matrix = new char[SIZE][SIZE];
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++){
-				this.matrix[i][j]= matrix[i].charAt(j); 
-				if (this.matrix[i][j] == 'H') {
-                    hero_line = i;
-                    hero_column = j;
-                }
-                if(this.matrix[i][j] == 'S'){
-                    exit_line=Math.max(1, Math.min(11, i));
-                    exit_column=Math.max(1, Math.min(11, j));
+				if(matrix[i][j] == state_abst.STAIRS){
+					exit_line=Math.max(1, Math.min(11, i));
+					exit_column=Math.max(1, Math.min(11, j));
+					
                 }
 			}
 		}
-		
-	}
+
+	}	
     @Override
     public void executeAction(Action action)
     {
@@ -97,8 +79,7 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(block_above, hero_column))   //If the position exists on the matrix
         {
             //wall/door
-            if(matrix[space_above][hero_column] == GameArea.state_abst.WALL_HORIZONTAL.getValue() ||
-            matrix[space_above][hero_column] == GameArea.state_abst.DOOR_HORIZONTAL_CLOSED.getValue())
+            if(matrix[space_above][hero_column] == state_abst.WALL_HORIZONTAL || matrix[space_above][hero_column] == state_abst.DOOR_HORIZONTAL_CLOSED)
             {
                 return false;
             }
@@ -120,8 +101,8 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(block_below, hero_column))   //If the position exists on the matrix
         {
             //wall/door
-            if(matrix[space_below][hero_column] == GameArea.state_abst.WALL_HORIZONTAL.getValue() ||
-            matrix[space_below][hero_column] == GameArea.state_abst.DOOR_HORIZONTAL_CLOSED.getValue())
+            if(matrix[space_below][hero_column] == state_abst.WALL_HORIZONTAL||
+            matrix[space_below][hero_column] == state_abst.DOOR_HORIZONTAL_CLOSED)
             {
                 return false;
             }
@@ -143,8 +124,8 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(hero_line, block_left))   //If the position exists on the matrix
         {
             //wall/door
-            if(matrix[hero_line][space_left] == GameArea.state_abst.WALL_VERTICAL.getValue() ||
-            matrix[hero_line][space_left] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            if(matrix[hero_line][space_left] == state_abst.WALL_VERTICAL ||
+            matrix[hero_line][space_left] == state_abst.DOOR_VERTICAL_CLOSED)
             {
                 return false;
             }
@@ -166,8 +147,8 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(hero_line, block_right))   //If the position exists on the matrix
         {
             //wall/door
-            if(matrix[hero_line][space_right] == GameArea.state_abst.WALL_VERTICAL.getValue() ||
-            matrix[hero_line][space_right] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            if(matrix[hero_line][space_right] == state_abst.WALL_VERTICAL ||
+            matrix[hero_line][space_right] == state_abst.DOOR_VERTICAL_CLOSED)
             {
                 return false;
             }
@@ -185,8 +166,8 @@ public class MummyMazeState extends State implements Cloneable{
         int block_above = hero_line - 2;
         int space_above = hero_line - 1;
 
-        matrix[block_above][hero_column] = 'H';
-        matrix[hero_line][hero_column] = '.';
+        matrix[block_above][hero_column] = state_abst.HERO;
+        matrix[hero_line][hero_column] =state_abst.WALKABLE;
 		
         hero_line = block_above;
     }
@@ -196,8 +177,8 @@ public class MummyMazeState extends State implements Cloneable{
         int block_below = hero_line + 2;
         int space_below = hero_line + 1;
 
-        matrix[block_below][hero_column] = 'H';
-        matrix[hero_line][hero_column] = '.';
+        matrix[block_below][hero_column] = state_abst.HERO;
+        matrix[hero_line][hero_column] = state_abst.WALKABLE;
 
         hero_line = block_below;
 		
@@ -208,8 +189,8 @@ public class MummyMazeState extends State implements Cloneable{
         int block_left = hero_column - 2;
         int space_left = hero_column - 1;
 
-        matrix[hero_line][block_left] = 'H';
-        matrix[hero_line][hero_column] = '.';
+        matrix[hero_line][block_left] = state_abst.HERO;
+        matrix[hero_line][hero_column] =state_abst.WALKABLE;
 
         hero_column = block_left;
     }
@@ -219,13 +200,13 @@ public class MummyMazeState extends State implements Cloneable{
         int block_right = hero_column + 2;
         int space_right = hero_column + 1;
 
-        matrix[hero_line][block_right] = 'H';
-        matrix[hero_line][hero_column] = '.';
+        matrix[hero_line][block_right] = state_abst.HERO;
+        matrix[hero_line][hero_column] = state_abst.WALKABLE;
 
         hero_column = block_right;
     }
 
-    public char[][] getMatrix()
+    public state_abst[][] getMatrix()
     {
         return this.matrix;
     }

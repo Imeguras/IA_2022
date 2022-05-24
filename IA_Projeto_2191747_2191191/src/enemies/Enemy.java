@@ -28,8 +28,8 @@ public abstract class Enemy
         if(isValidPosition(enemy_position.line, block_left))   //If the position exists on the matrix
         {
             //wall/door
-            if(boardState.getMatrix()[enemy_position.line][space_left] == GameArea.state_abst.WALL_VERTICAL.getValue()
-            || boardState.getMatrix()[enemy_position.line][space_left] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            if(boardState.getMatrix()[enemy_position.line][space_left] == GameArea.state_abst.WALL_VERTICAL
+            || boardState.getMatrix()[enemy_position.line][space_left] == GameArea.state_abst.DOOR_VERTICAL_CLOSED)
             {
                 return false;
             }
@@ -47,8 +47,8 @@ public abstract class Enemy
         int block_left = enemy_position.col - 2;
         int space_left = enemy_position.col - 1;
 
-        boardState.getMatrix()[enemy_position.line][block_left] = symbol.getValue();
-        boardState.getMatrix()[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE.getValue();
+        boardState.getMatrix()[enemy_position.line][block_left] = symbol;
+        boardState.getMatrix()[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE;
 
         enemy_position.col = block_left;
     }
@@ -62,8 +62,8 @@ public abstract class Enemy
         if(isValidPosition(enemy_position.line, block_right))   //If the position exists on the matrix
         {
             //wall/door
-            if(boardState.getMatrix()[enemy_position.line][space_right] == GameArea.state_abst.WALL_VERTICAL.getValue()
-            || boardState.getMatrix()[enemy_position.line][space_right] == GameArea.state_abst.DOOR_VERTICAL_CLOSED.getValue())
+            if(boardState.getMatrix()[enemy_position.line][space_right] == GameArea.state_abst.WALL_VERTICAL
+            || boardState.getMatrix()[enemy_position.line][space_right] == GameArea.state_abst.DOOR_VERTICAL_CLOSED)
             {
                 return false;
             }

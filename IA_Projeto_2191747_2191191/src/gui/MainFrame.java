@@ -11,28 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 import mummymaze.MummyMazeAgent;
 import mummymaze.MummyMazeProblem;
-import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
@@ -43,8 +36,8 @@ public class MainFrame extends JFrame {
 	private MummyMazeAgent agent;// = new MummyMazeAgent(new MummyMazeState());
 	private JFileChooser fileChooser_dialog;
 	private JButton btnOpenFileDialog;
-    private JComboBox comboBoxSearchMethods;
-    private JComboBox comboBoxHeuristics;
+    private JComboBox<SearchMethod> comboBoxSearchMethods;
+    private JComboBox<Heuristic> comboBoxHeuristics;
     private JLabel labelSearchParameter; 
     private JTextField textFieldSearchParameter;
     private JButton buttonInitialState; 
@@ -245,7 +238,8 @@ public class MainFrame extends JFrame {
         //whats the point here?
 		textArea.setText("");
     }
-
+	// TODO: Fix the enabled and disabled buttons
+	// BODY: During the show solution, or solve the level, etc... some buttons are enabled when they shouldn't, various functions should be created as to spare coding time and documentation
     public void buttonSolve_ActionPerformed(ActionEvent e) {
 
         SwingWorker worker = new SwingWorker<Solution, Void>() {
