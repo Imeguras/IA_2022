@@ -10,6 +10,7 @@ import searchmethods.*;
 
 public class Agent<E extends State>
 {
+
     protected E environment;
 	public static SearchMethod[] searchMethods_st={
 			new BreadthFirstSearch(),
@@ -59,6 +60,8 @@ public class Agent<E extends State>
     {
         for(Action action : solution.getActions()){
             environment.executeAction(action);
+			
+
         }
 		
     }

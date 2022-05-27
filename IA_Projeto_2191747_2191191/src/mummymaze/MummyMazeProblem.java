@@ -2,7 +2,9 @@ package mummymaze;
 
 import agent.Action;
 import agent.Problem;
+import enemies.Enemy;
 
+import java.io.Console;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,15 +13,14 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     private List<Action> actions;
     private MummyMazeState goalState;
 
-    public MummyMazeProblem(MummyMazeState initialState)
-    {
+    public MummyMazeProblem(MummyMazeState initialState){
         super(initialState);
         this.actions = new LinkedList<>();
         this.actions.add(new ActionDown());
         this.actions.add(new ActionUp());
         this.actions.add(new ActionLeft());
         this.actions.add(new ActionRight());
-    }
+	}
 
     @Override
     public List<Action<MummyMazeState>> getActions(MummyMazeState state)
@@ -36,13 +37,14 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     }
 
     @Override
-    public List<MummyMazeState> executeActions(MummyMazeState state)
-    {
+    public List<MummyMazeState> executeActions(MummyMazeState state){
         LinkedList<MummyMazeState> successors= new LinkedList<>();
         for(Action a: actions){
             if(a.isValid(state)){
                 MummyMazeState successor = (MummyMazeState) state.clone();
                 a.execute(successor);
+				
+				
                 successors.add(successor);
             }
         }
@@ -71,7 +73,9 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     public MummyMazeState getSuccessor(MummyMazeState state, Action action)
     {
         MummyMazeState successor = state.clone();
-        action.execute(successor);
+        
+		action.execute(successor);
+		
         return successor;
     }
 	

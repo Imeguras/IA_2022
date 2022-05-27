@@ -30,12 +30,16 @@ public class PointDimension<T extends java.lang.Number> implements Comparable<Po
 	@Override
 	public int compareTo(PointDimension<T> o) {
 		
-		return (this.col.toString()+this.line.toString()).compareTo(o.col.toString()+o.line.toString());
+		return (this.col.toString()+"C"+this.line.toString()+"L").compareTo(o.col.toString()+"C"+o.line.toString()+"L");
 	}
 
 	public char getValueInPos_RelativeTo(char[][] matrix, int lin, int cl){
 		
 		return matrix[line.intValue()+lin][col.intValue()+cl];
+	}
+	@Override
+	public String toString(){
+		return "Pos: ["+line.doubleValue()+" (line/y), "+ col.doubleValue()+" (column/x)]";
 	}
 	
 
