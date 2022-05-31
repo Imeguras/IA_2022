@@ -17,7 +17,9 @@ public class ActionUp extends Action<MummyMazeState>{
 
     @Override
     public boolean isValid(MummyMazeState state){
-		for (Enemy iterable_element : Enemy.enemies) {
+		for (Enemy iterable_element : Enemy.enemies)
+		{
+            iterable_element.updateState(state);
 			if(iterable_element.canKill()){
 				return false;
 			}

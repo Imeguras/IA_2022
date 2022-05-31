@@ -105,7 +105,8 @@ public abstract class Enemy{
 		enemy_position.line = block_up;
 		return matrix; 
 	}
-	public boolean canMoveDown(){
+	public boolean canMoveDown()
+	{
 		//If the tile next to hero on the right is a vertical wall (|) or
 		// closed door (=) it cannot move
 		int block_down = enemy_position.line + 2;
@@ -122,7 +123,9 @@ public abstract class Enemy{
 		}
 		return true;
 	}
-	public state_abst[][] moveDown(){
+
+	public state_abst[][] moveDown()
+	{
 		int block_down = enemy_position.line + 2;
 		int space_down = enemy_position.line + 1;
 		state_abst[][] matrix= boardState.getMatrix();
@@ -132,9 +135,9 @@ public abstract class Enemy{
 		enemy_position.line = block_down;
 		return matrix; 
 	}
-	public boolean canKill(){
-		return false; 
-	}
+
+	public abstract boolean canKill();
+
 	public Enemy(PointDimension<Integer> enemy_position, String name)
 	{
 		this.enemy_position = enemy_position;

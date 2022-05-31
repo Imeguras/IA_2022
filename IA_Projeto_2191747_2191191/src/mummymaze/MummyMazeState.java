@@ -15,6 +15,7 @@ import java.util.Arrays;
 public class MummyMazeState extends State implements Cloneable{
 	
     public static final int SIZE = 13;
+    public boolean hero_dead = false;
 
     private GameArea.state_abst[][] matrix;
 
@@ -123,7 +124,8 @@ public class MummyMazeState extends State implements Cloneable{
             matrix[space_below][hero_column] == state_abst.DOOR_HORIZONTAL_CLOSED){
                 return false;
             }
-        }else{
+        }else
+        {
             return false;
         }
         return true;
