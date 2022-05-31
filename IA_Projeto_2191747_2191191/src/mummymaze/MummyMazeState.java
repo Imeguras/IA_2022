@@ -98,18 +98,27 @@ public class MummyMazeState extends State implements Cloneable{
         int block_above = hero_line - 2;
         int space_above = hero_line - 1;
         if(isValidPosition(block_above, hero_column)){   //If the position exists on the matrix
-            //wall/door
-            if(matrix[space_above][hero_column] == state_abst.WALL_HORIZONTAL || matrix[space_above][hero_column] == state_abst.DOOR_HORIZONTAL_CLOSED)
-            {
-                return false;
-            }
+            switch (matrix[space_above][hero_column]){
+				case WALL_HORIZONTAL: 
+				case MUMMY_WHITE:
+				case TRAP:
+				case MUMMY_RED:
+				case DOOR_HORIZONTAL_CLOSED:
+				case SCORPION: 
+					return false;
+			
+				default:
+					return true;
+					
+			}
+			
         }
         else
         {
             return false;
         }
 
-        return true;
+
     }
 
     public boolean canMoveDown()
@@ -120,15 +129,25 @@ public class MummyMazeState extends State implements Cloneable{
         int space_below = hero_line + 1;
         if(isValidPosition(block_below, hero_column)){   //If the position exists on the matrix
             //wall/door
-            if(matrix[space_below][hero_column] == state_abst.WALL_HORIZONTAL||
-            matrix[space_below][hero_column] == state_abst.DOOR_HORIZONTAL_CLOSED){
-                return false;
-            }
-        }else
-        {
+            switch(matrix[space_below][hero_column]){
+            
+				case WALL_HORIZONTAL: 
+				case MUMMY_WHITE:
+				case TRAP:
+				case MUMMY_RED:
+				case DOOR_HORIZONTAL_CLOSED:
+				case SCORPION: 
+					return false;
+			
+				default:
+					return true;
+					
+			}
+
+        }else{
             return false;
         }
-        return true;
+        
     }
 
     public boolean canMoveLeft()
@@ -140,18 +159,27 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(hero_line, block_left))   //If the position exists on the matrix
         {
             //wall/door
-            if(matrix[hero_line][space_left] == state_abst.WALL_VERTICAL ||
-            matrix[hero_line][space_left] == state_abst.DOOR_VERTICAL_CLOSED)
-            {
-                return false;
-            }
+
+			switch(matrix[hero_line][space_left]){
+				case WALL_HORIZONTAL: 
+				case MUMMY_WHITE:
+				case TRAP:
+				case MUMMY_RED:
+				case DOOR_HORIZONTAL_CLOSED:
+				case SCORPION: 
+					return false;
+		
+				default:
+					return true;
+				
+			}
         }
         else
         {
             return false;
         }
 
-        return true;
+  
     }
 
     public boolean canMoveRight()
@@ -162,19 +190,23 @@ public class MummyMazeState extends State implements Cloneable{
         int space_right = hero_column + 1;
         if(isValidPosition(hero_line, block_right))   //If the position exists on the matrix
         {
-            //wall/door
-            if(matrix[hero_line][space_right] == state_abst.WALL_VERTICAL ||
-            matrix[hero_line][space_right] == state_abst.DOOR_VERTICAL_CLOSED)
-            {
-                return false;
-            }
+        
+            switch(matrix[hero_line][space_right]){	
+				case WALL_HORIZONTAL: 
+				case MUMMY_WHITE:
+				case TRAP:
+				case MUMMY_RED:
+				case DOOR_HORIZONTAL_CLOSED:
+				case SCORPION: 
+				return false;		
+				default:
+					return true;
+			
+			}
         }
-        else
-        {
+        else{
             return false;
         }
-
-        return true;
     }
 
     public void moveUp()

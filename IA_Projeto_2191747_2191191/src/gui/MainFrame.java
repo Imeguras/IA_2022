@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
 		buttonStop.setEnabled(false);
 		buttonShowSolution.setEnabled(false);
 		buttonReset.setEnabled(false);
-
+		
 		JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new BorderLayout());
 

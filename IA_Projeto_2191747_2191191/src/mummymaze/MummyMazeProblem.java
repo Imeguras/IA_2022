@@ -35,7 +35,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         }
         return possibleActions;
     }
-
+	
     @Override
     public List<MummyMazeState> executeActions(MummyMazeState state){
         LinkedList<MummyMazeState> successors= new LinkedList<>();
@@ -59,6 +59,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     public void setActions(List<Action> actions) {
         this.actions = actions;
     }
+	
 	//UNUSED!!!
     public MummyMazeState getGoalState()
     {
