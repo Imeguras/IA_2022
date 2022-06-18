@@ -16,7 +16,6 @@ public abstract class State
 
     public void setAction(Action action){
         this.action = action;
-		//devido ao boogaloo que isto é tem de ser aqui
 		
     }
 

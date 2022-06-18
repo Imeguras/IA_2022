@@ -6,11 +6,11 @@ public class HeuristicTileDistance extends Heuristic<MummyMazeProblem, MummyMaze
 
     @Override
     public double compute(MummyMazeState state){
-        return 0;
+        return state.getHero_pos().geometricCompareTo(state.getExit_pos());
     }
     
     @Override
     public String toString(){
-        return "Tiles distance to final position";
+        return "The Hypothenuse to the final position";
     }
 }

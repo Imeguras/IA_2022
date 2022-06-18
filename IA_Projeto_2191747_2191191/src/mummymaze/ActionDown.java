@@ -13,16 +13,17 @@ public class ActionDown extends Action<MummyMazeState>{
     @Override
     public void execute(MummyMazeState state){
         state.moveDown();
-		
         state.setAction(this);
     }
 
     @Override
-    public boolean isValid(MummyMazeState state)
-    {
-		for (Enemy iterable_element : Enemy.enemies) {
-		    iterable_element.updateState(state);
-			if(iterable_element.canKill()){
+    public boolean isValid(MummyMazeState state){
+		if(state.hero_dead){
+			return false;
+		}
+		for (Enemy iterable_element : state.enemies) {
+
+			if(iterable_element.canKill(state)){
 				return false;
 			}
 		}

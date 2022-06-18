@@ -20,6 +20,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         this.actions.add(new ActionUp());
         this.actions.add(new ActionLeft());
         this.actions.add(new ActionRight());
+		this.actions.add(new ActionStill());
 	}
 
     @Override
@@ -71,20 +72,19 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
     }
 
     @Override
-    public MummyMazeState getSuccessor(MummyMazeState state, Action action)
-    {
+    public MummyMazeState getSuccessor(MummyMazeState state, Action action){
         MummyMazeState successor = state.clone();
-        
+       
 		action.execute(successor);
-		
+		for (Enemy cur_subturn : successor.enemies) {
+			successor=cur_subturn.MovePoll(successor);
+		}
         return successor;
     }
 	
     public boolean isGoal(MummyMazeState state){
-        if(state.getHero_pos().compareTo(state.getExit_pos())==0){
-			return true; 
-		};
-		return false;
+        
+		return state.getHero_pos().equals(state.getExit_pos());
     }
 
     public double computePathCost(List<Action> path)

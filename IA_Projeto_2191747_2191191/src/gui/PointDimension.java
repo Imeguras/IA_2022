@@ -26,12 +26,25 @@ public class PointDimension<T extends java.lang.Number> implements Comparable<Po
 		return collector; 
 	}
 	
-	// @summary: Checks if the Point is equal to the other object, returns 0 if so, else it will return 1 in case the objects sum of decimal places is bigger than the one provided in o
+	// @summary: Checks if the Point is equal to the other object, returns 0 if so, else it will return the ceiled vector distance between this object and o, the value will be negative if the line of o is bigger than the one of this object, also this is not a geometric function it will parse the integer value of the points
 	@Override
 	public int compareTo(PointDimension<T> o) {
-		
-		return (this.col.toString()+"C"+this.line.toString()+"L").compareTo(o.col.toString()+"C"+o.line.toString()+"L");
+		return (int)Math.ceil(geometricCompareTo(o));
 	}
+	public double geometricCompareTo(PointDimension<T> o){
+		int x= this.col.intValue()-o.col.intValue();
+		int y= this.line.intValue()-o.line.intValue();
+		double result= Math.sqrt((x*x)+(y*y)); 
+		if(y<0){
+			result*=-1; 
+		}
+		return result;
+	}
+
+	// @summary: Checks if this and the point provided are geometrically at the same place
+	public boolean equals(PointDimension<T> o){
+		return (this.col==o.col && this.line==o.line);
+	} 
 
 	public char getValueInPos_RelativeTo(char[][] matrix, int lin, int cl){
 		

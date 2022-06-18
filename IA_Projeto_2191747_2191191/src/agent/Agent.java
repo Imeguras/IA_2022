@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import mummymaze.ActionDown;
 import mummymaze.HeuristicTileDistance;
-import mummymaze.HeuristicTilesOutOfPlace;
 import searchmethods.*;
 
 public class Agent<E extends State>
@@ -24,8 +23,7 @@ public class Agent<E extends State>
         	new IDAStarSearch()
 	};
 	public static Heuristic[] heuristics_st={
-		new HeuristicTileDistance(),
-		new HeuristicTilesOutOfPlace()
+		new HeuristicTileDistance()
 	};
     //protected ArrayList<SearchMethod> searchMethods;
     protected SearchMethod searchMethod;

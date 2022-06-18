@@ -46,19 +46,20 @@ public abstract class GraphSearch<L extends NodeCollection> implements SearchMet
         {
             Node n = frontier.poll();
             State state = n.getState();
-            if(problem.isGoal(state))
-            {
+			if(problem.isGoal(state)){
                 return new Solution(problem, n);
             }
             explored.add(state);
 
+
+			//retorna as ações possíveis para o estado atual
             List<Action> actions = problem.getActions(state);
 
-            for(Action action : actions)
-            {
+            for(Action action : actions){
                 State successor = problem.getSuccessor(state, action);
                 addSuccessorToFrontier(successor, n);
             }
+			
             computeStatistics(actions.size());
         }
         return null;

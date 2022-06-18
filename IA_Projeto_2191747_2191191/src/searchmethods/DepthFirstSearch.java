@@ -24,13 +24,15 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
         while(!frontier.isEmpty() && !stopped){
             Node n = frontier.poll();
             State state = n.getState();
-
-            if(problem.isGoal(state)){
+			
+			if(problem.isGoal(state)){
 				System.out.print("Solution Frame:\n"+state.toString());
                 return new Solution(problem, n);
             }
 			List<State> successors = problem.executeActions(n.getState());
 			addSuccessorsToFrontier(successors, n);
+			//It only is the goalState if the enemies can't kill the hero when he is on the goal state
+			
             //frontier.add(suc)
 			//addSuccessorsToFrontier(successors, frontierNode);
 

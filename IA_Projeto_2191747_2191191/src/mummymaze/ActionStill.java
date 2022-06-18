@@ -1,17 +1,19 @@
 package mummymaze;
 
+
 import agent.Action;
 import enemies.Enemy;
+import gui.GameArea;
 
-public class ActionLeft extends Action<MummyMazeState>{
+public class ActionStill extends Action<MummyMazeState> {
 
-    public ActionLeft(){
+
+    public ActionStill(){
         super(1);
     }
 
     @Override
     public void execute(MummyMazeState state){
-        state.moveLeft();
         state.setAction(this);
     }
 
@@ -21,10 +23,12 @@ public class ActionLeft extends Action<MummyMazeState>{
 			return false;
 		}
 		for (Enemy iterable_element : state.enemies) {
+
 			if(iterable_element.canKill(state)){
 				return false;
 			}
 		}
-        return state.canMoveLeft();
+        return true;
     }
 }
+
