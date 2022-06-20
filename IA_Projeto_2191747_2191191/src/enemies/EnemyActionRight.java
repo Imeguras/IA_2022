@@ -1,12 +1,15 @@
 package enemies;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
+
 import agent.Action;
 import mummymaze.MummyMazeState;
-public class EnemyActionRight extends Action<MummyMazeState>{
-	public Enemy trackingEnemy;
+public class EnemyActionRight extends EnemyAction{
+	
 	public EnemyActionRight(Enemy trackingEnemy) {
-		super(0);
-		this.trackingEnemy = trackingEnemy;
+		super(trackingEnemy);
+	
 	}
 	@Override
 	public void execute(MummyMazeState State) {
@@ -18,6 +21,18 @@ public class EnemyActionRight extends Action<MummyMazeState>{
 	@Override
 	public boolean isValid(MummyMazeState State) {
 		return trackingEnemy.canMoveRight(State.getMatrix());
+	}
+	@Override
+	public void removeRedundantMoves(ListIterator<EnemyAction> actions) {
+		//Remove any EnemyAction that is of EnemyActionLeft type
+		while(actions.hasNext()) {
+			EnemyAction action = actions.next();
+			if(action instanceof EnemyActionLeft) {
+				actions.remove();
+			}
+		}
+		rewindMoves(actions);
+		
 	}
 	
 }

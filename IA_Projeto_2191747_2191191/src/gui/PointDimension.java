@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-public class PointDimension<T extends java.lang.Number> implements Comparable<PointDimension<T>>{
+public class PointDimension<T extends java.lang.Number> implements Comparable<PointDimension<T>>, Cloneable{
 
 	public T line;
 	public T col; 
@@ -54,6 +54,14 @@ public class PointDimension<T extends java.lang.Number> implements Comparable<Po
 	public String toString(){
 		return "Pos: ["+line.doubleValue()+" (line/y), "+ col.doubleValue()+" (column/x)]";
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		
+		return new PointDimension<T>(line, col);
+	}
 	
+	public PointDimension<T> getClone(){
+		return new PointDimension<T>(line, col);
+	}
 
 }

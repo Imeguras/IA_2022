@@ -91,15 +91,15 @@ public abstract class Enemy{
 	public abstract MummyMazeState MovePoll(MummyMazeState state);
 	public abstract boolean canKill(MummyMazeState state);
 
-	public Enemy(PointDimension<Integer> enemy_position, String name)
-	{
+	public Enemy(PointDimension<Integer> enemy_position, String name){
 		this.enemy_position = enemy_position;
 		this.name = name;
 		
 	}
 
 	public PointDimension<Integer> getEnemy_position() {
-		return enemy_position;
+		return enemy_position.getClone();
+		
 	}
 
 	private String name;
