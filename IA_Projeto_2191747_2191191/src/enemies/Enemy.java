@@ -87,8 +87,7 @@ public abstract class Enemy{
 	public void trailBehind(MummyMazeState state) {
 		if(state.matrix[enemy_position.line][enemy_position.col] == getSymbol()) {
 			state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
-		} else if(state.matrix[enemy_position.line][enemy_position.col] == getSymbolTrap())
-		{
+		} else if(state.matrix[enemy_position.line][enemy_position.col] == getSymbolTrap()){
 			state.matrix[enemy_position.line][enemy_position.col] = state_abst.TRAP;
 		}
 		else
@@ -105,6 +104,9 @@ public abstract class Enemy{
 				state.matrix[block_up][enemy_position.col] = getSymbolKey();
 				state.open_close_door();	
 				break;
+			case TRAP:
+				state.matrix[block_up][enemy_position.col] = getSymbolTrap();
+				break;
 			default:
 				state.matrix[block_up][enemy_position.col] = getSymbol();	
 				break;
@@ -118,6 +120,9 @@ public abstract class Enemy{
 			case KEY:
 				state.matrix[enemy_position.line][block_up] = getSymbolKey();
 				state.open_close_door();	
+				break;
+			case TRAP:
+				state.matrix[enemy_position.line][block_up] = getSymbolTrap();
 				break;
 			default:
 				state.matrix[enemy_position.line][block_up] = getSymbol();	

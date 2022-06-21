@@ -5,6 +5,7 @@ import agent.State;
 import enemies.Enemy;
 import enemies.EnemyOrderComparator;
 import enemies.RedMummy;
+import enemies.Scorpion;
 import enemies.WhiteMummy;
 import gui.GameArea;
 import gui.PointDimension;
@@ -54,17 +55,26 @@ public class MummyMazeState extends State implements Cloneable{
 						exit_line=Math.max(1, Math.min(11, i));
 						exit_column=Math.max(1, Math.min(11, j));
 						break;
+					case WHITEKEY:
 					case WHITETRAP:
 					case MUMMY_WHITE:
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
 						break;
+					case REDKEY:
 					case REDTRAP:
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
 						enemies.sort(cmp2);
+						break; 	
+					case SCORPIONKEY:
+					case SCORPIONTRAP:
+					case SCORPION: 
+						EnemyOrderComparator cmp3= new EnemyOrderComparator();
+						enemies.add(new Scorpion(new PointDimension<Integer>(i, j), "Scorpion"));
+						enemies.sort(cmp3);
 						break; 	
 					case DOOR_HORIZONTAL_CLOSED:
 					case DOOR_HORIZONTAL_OPENED:
@@ -102,18 +112,28 @@ public class MummyMazeState extends State implements Cloneable{
 						exit_line=Math.max(1, Math.min(11, i));
 						exit_column=Math.max(1, Math.min(11, j));
 						break;
+					case WHITEKEY:
 					case WHITETRAP:
 					case MUMMY_WHITE:
+				
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
 						break;
+					case REDKEY:
 					case REDTRAP:
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
 						enemies.sort(cmp2);
 						break; 
+					case SCORPIONKEY:
+					case SCORPIONTRAP:
+					case SCORPION: 
+						EnemyOrderComparator cmp3= new EnemyOrderComparator();
+						enemies.add(new Scorpion(new PointDimension<Integer>(i, j), "Scorpion"));
+						enemies.sort(cmp3);
+						break; 	
 					case DOOR_HORIZONTAL_CLOSED:
 					case DOOR_HORIZONTAL_OPENED:
 					case DOOR_VERTICAL_CLOSED:
