@@ -99,6 +99,7 @@ public abstract class Enemy{
 		switch (state.matrix[block_up][enemy_position.col]) {
 			case HERO:
 				state.hero_dead = true;
+				state.matrix[enemy_position.line][block_up] = getSymbol();	
 				break;
 			case KEY:
 				state.matrix[block_up][enemy_position.col] = getSymbolKey();
@@ -116,6 +117,7 @@ public abstract class Enemy{
 		switch (state.matrix[enemy_position.line][block_up]) {
 			case HERO:
 				state.hero_dead = true;
+				state.matrix[enemy_position.line][block_up] = getSymbol();	
 				break;
 			case KEY:
 				state.matrix[enemy_position.line][block_up] = getSymbolKey();
