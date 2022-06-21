@@ -38,6 +38,10 @@ public class WhiteMummy extends Enemy{
 	public state_abst getSymbol(){
 		return state_abst.MUMMY_WHITE;
 	}
+	@Override
+	public state_abst getSymbolTrap(){
+		return state_abst.WHITETRAP;
+	}
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
@@ -68,6 +72,9 @@ public class WhiteMummy extends Enemy{
 
 	private void futureStompVertical(MummyMazeState state, int block_up) {
 		switch (state.matrix[block_up][enemy_position.col]) {
+			case TRAP:
+				state.matrix[block_up][enemy_position.col] = state_abst.WHITETRAP;
+				break;
 			case HERO:
 				state.hero_dead = true;
 				break;
@@ -82,6 +89,9 @@ public class WhiteMummy extends Enemy{
 	}
 	private void futureStompHorizontal(MummyMazeState state, int block_up) {
 		switch (state.matrix[enemy_position.line][block_up]) {
+			case TRAP:
+				state.matrix[enemy_position.line][block_up] = state_abst.WHITETRAP;
+				break;
 			case HERO:
 				state.hero_dead = true;
 				break;

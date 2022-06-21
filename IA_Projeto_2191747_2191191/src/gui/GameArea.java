@@ -46,6 +46,9 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		REDKEY('W'),
 		SCORPIONKEY('Y'),
 		HEROKEY('K'),
+		WHITETRAP('I'),
+		REDTRAP('R'),
+		SCORPIONTRAP('P'),
 		STAIRS('S'),
 		WALKABLE('.'),
 		VOID(' '),
@@ -153,8 +156,10 @@ public class GameArea extends JPanel implements MummyMazeListener {
 					case 'Z' : g.drawImage(mummyWhite,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
 					case 'W' : g.drawImage(mummyRed,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
 					case 'Y' : g.drawImage(scorpion,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
-					case 'K' :  g.drawImage(hero,j == 0 ? xStart + (j-2)/2 * 60 : xStart + j/2 * 60, i ==0 ? yStart + (i-2)/2 * 60 -6 : yStart + i/2 * 60,this); break;
-					
+					case 'K' : g.drawImage(hero,j == 0 ? xStart + (j-2)/2 * 60 : xStart + j/2 * 60, i ==0 ? yStart + (i-2)/2 * 60 -6 : yStart + i/2 * 60,this); break;
+					case 'I' : g.drawImage(mummyWhite,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
+					case 'R' : g.drawImage(mummyRed,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
+					case 'P' : g.drawImage(scorpion,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
 				}
 			}
 		}

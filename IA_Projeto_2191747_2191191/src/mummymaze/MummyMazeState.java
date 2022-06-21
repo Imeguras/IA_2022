@@ -54,11 +54,13 @@ public class MummyMazeState extends State implements Cloneable{
 						exit_line=Math.max(1, Math.min(11, i));
 						exit_column=Math.max(1, Math.min(11, j));
 						break;
+					case WHITETRAP:
 					case MUMMY_WHITE:
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
-						break; 
+						break;
+					case REDTRAP:
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
@@ -100,11 +102,13 @@ public class MummyMazeState extends State implements Cloneable{
 						exit_line=Math.max(1, Math.min(11, i));
 						exit_column=Math.max(1, Math.min(11, j));
 						break;
+					case WHITETRAP:
 					case MUMMY_WHITE:
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
 						break;
+					case REDTRAP:
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
@@ -269,7 +273,7 @@ public class MummyMazeState extends State implements Cloneable{
         int space_above = hero_line - 1;
 	
 		
-		if(matrix[block_above][hero_column]==state_abst.KEY){
+		if(matrix[block_above][hero_column]==state_abst.KEY) {
 			matrix[block_above][hero_column] = state_abst.HEROKEY;
 			open_close_door();
 		}else{
