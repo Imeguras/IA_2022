@@ -75,7 +75,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
 
     @Override
     public MummyMazeState getSuccessor(MummyMazeState state, Action action){
-        MummyMazeState successor = state.clone();
+        MummyMazeState successor = state.clone(false);
        
 		action.execute(successor);
 

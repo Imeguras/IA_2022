@@ -67,7 +67,7 @@ public class Agent<E extends State>
 			//PointDimension<Integer> normalize=new PointDimension<Integer>(0, 0);
 			if(action instanceof EnemyAction){
 				((EnemyAction)action).trackingEnemy.enemy_position=((EnemyAction)action).trackingEnemy.origin;
-				break;
+				//break;
 			}
 			
 		}
