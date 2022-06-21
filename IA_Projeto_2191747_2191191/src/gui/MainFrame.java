@@ -296,7 +296,7 @@ public class MainFrame extends JFrame {
     public void buttonShowSolution_ActionPerformed(ActionEvent e) {
 		
 		MummyMazeState tak = agent.resetEnvironment();
-		System.out.println(tak.toString());
+		
 		gameArea.setState(tak);
         
         buttonShowSolution.setEnabled(false);

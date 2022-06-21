@@ -56,9 +56,9 @@ public class Agent<E extends State>
         }
         solution = searchMethod.search(problem);
 		//for each solution.getActions print action.toString()
-		for (Action k: solution.getActions()) {
-			System.out.println(k.toString());
-		}
+		//for (Action k: solution.getActions()) {
+			//System.out.println(k.toString());
+		//}
         return solution;	
     }
 
@@ -71,7 +71,7 @@ public class Agent<E extends State>
 			}
 			
 		}
-		//System.out.println();
+		
         for(Action action : solution.getActions()){
 			//if action is of EnemyAction type
 			
