@@ -54,6 +54,7 @@ public class NodeLinkedList extends LinkedList<Node> implements NodeCollection {
     @Override
     public Node poll() {
         Node n = super.poll();
+		
         contents.remove(n.getState());
         return n;
     }

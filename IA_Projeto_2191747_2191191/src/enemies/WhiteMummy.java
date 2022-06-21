@@ -139,13 +139,13 @@ public class WhiteMummy extends Enemy{
 					if(action2.isValid(state)){
 						action2.execute(state);
 						if (state.hero_dead) {
-							return state;
+							return state.clone();
 						//check if it made any progress in being in the same column as hero
 						}else if(Math.abs(state.getHero_pos().col-oldPos.col)>Math.abs(state.getHero_pos().col-getEnemy_position().col) || Math.abs(state.getHero_pos().col-getEnemy_position().col)==0){
-							return state;
+							return state.clone();
 						//check if after being in the same column as hero, it made any progress in being in the same line as hero
 						}else if(getEnemy_position().col==state.getHero_pos().col && Math.abs(state.getHero_pos().line-oldPos.line)>Math.abs(state.getHero_pos().line-getEnemy_position().line)){
-							return state;
+							return state.clone();
 					
 						}
 					}//else continues by default
@@ -154,6 +154,6 @@ public class WhiteMummy extends Enemy{
 		}
 		//restores the old postion or remain stuck in other words, because no progress was made
 		this.enemy_position= oldPos; 
-		return oldState;
+		return oldState.clone();
 	}
 }

@@ -32,7 +32,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState>{
 	* @Returns the attribute initialEnvironment
 	*/
     public MummyMazeState readInitialStateFromFile(String file) throws IOException{
-		System.out.println(file);
+	 //	System.out.println(file);
         initialEnvironment = readStateFromFile(file);
         resetEnvironment();
         return environment;

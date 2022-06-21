@@ -60,9 +60,8 @@ public abstract class State
 	 */
 	public void addAction(Action action){
 		//check if the action already exists in actions 
-		if(!actions.contains(action)){
-			actions.addLast(action);
-		}
+		actions.addLast(action);
+	
 
 	}
 	public LinkedList<Action> getActions(){

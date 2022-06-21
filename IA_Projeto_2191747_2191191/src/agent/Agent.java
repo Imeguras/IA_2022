@@ -4,6 +4,9 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import enemies.Enemy;
+import enemies.EnemyAction;
+import gui.PointDimension;
 import mummymaze.ActionDown;
 import mummymaze.HeuristicTileDistance;
 import searchmethods.*;
@@ -45,22 +48,34 @@ public class Agent<E extends State>
     public Solution solveProblem(Problem problem)
     {
 		
-        /*if (heuristic != null)
+        if (heuristic != null)
         {
             problem.setHeuristic(heuristic);
             heuristic.setProblem(problem);
-        }*/
+			
+        }
         solution = searchMethod.search(problem);
 		//for each solution.getActions print action.toString()
 		for (Action k: solution.getActions()) {
 			System.out.println(k.toString());
 		}
-        return solution;
+        return solution;	
     }
 
-    public void executeSolution()
-    {
+    public void executeSolution(){
+		for(Action action : solution.getActions()){
+			//PointDimension<Integer> normalize=new PointDimension<Integer>(0, 0);
+			if(action instanceof EnemyAction){
+				((EnemyAction)action).trackingEnemy.enemy_position=((EnemyAction)action).trackingEnemy.origin;
+				break;
+			}
+			
+		}
+		//System.out.println();
         for(Action action : solution.getActions()){
+			//if action is of EnemyAction type
+			
+				
             environment.executeAction(action);
 			
 

@@ -8,8 +8,9 @@ import mummymaze.MummyMazeState;
 import java.util.LinkedList;
 
 public abstract class Enemy{
-	protected PointDimension<Integer> enemy_position;
 
+	public PointDimension<Integer> enemy_position;
+	public PointDimension<Integer> origin;
 	public boolean isValidPosition(int line, int col, state_abst[][] matriz){
 		return line >= 0 && line < matriz.length && col >= 0 && col < matriz[0].length;
 	}
@@ -92,6 +93,7 @@ public abstract class Enemy{
 	public abstract boolean canKill(MummyMazeState state);
 
 	public Enemy(PointDimension<Integer> enemy_position, String name){
+		this.origin= enemy_position;
 		this.enemy_position = enemy_position;
 		this.name = name;
 		

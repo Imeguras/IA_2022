@@ -20,6 +20,7 @@ public class EnemyActionDown extends EnemyAction {
 		State.addAction(this);
 	}
 
+
 	@Override
 	public boolean isValid(MummyMazeState State) {
 		

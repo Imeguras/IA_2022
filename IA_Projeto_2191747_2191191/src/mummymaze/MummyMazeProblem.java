@@ -82,6 +82,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
 		for (Enemy cur_subturn : successor.enemies) {
 			successor=cur_subturn.MovePoll(successor);
 		}
+		System.out.println(successor.toString());
         return successor;
     }
 	

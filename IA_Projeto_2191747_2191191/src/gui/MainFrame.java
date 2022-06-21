@@ -292,9 +292,12 @@ public class MainFrame extends JFrame {
         buttonStop.setEnabled(false);
         buttonSolve.setEnabled(true);
     }
-
+	//SHOW RESPOSTA
     public void buttonShowSolution_ActionPerformed(ActionEvent e) {
-		gameArea.setState(agent.resetEnvironment());
+		
+		MummyMazeState tak = agent.resetEnvironment();
+		System.out.println(tak.toString());
+		gameArea.setState(tak);
         
         buttonShowSolution.setEnabled(false);
         buttonStop.setEnabled(false);
