@@ -42,6 +42,10 @@ public class WhiteMummy extends Enemy{
 	public state_abst getSymbolKey(){
 		return state_abst.WHITEKEY;
 	}
+	@Override
+	public state_abst getSymbolTrap(){
+		return state_abst.WHITETRAP;
+	}
 
 	@Override
 	public void MoveDown(MummyMazeState state) {

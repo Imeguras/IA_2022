@@ -35,6 +35,11 @@ public class RedMummy extends Enemy{
 	}
 
 	@Override
+	public state_abst getSymbolTrap(){
+		return state_abst.REDTRAP;
+	}
+
+	@Override
 	public void MoveUp(MummyMazeState state) {
 		trailBehind(state);
 		int block_up = enemy_position.line - 2;

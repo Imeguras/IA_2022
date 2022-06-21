@@ -85,9 +85,14 @@ public abstract class Enemy{
 		return true;
 	}
 	public void trailBehind(MummyMazeState state) {
-		if(state.matrix[enemy_position.line][enemy_position.col] == getSymbol()){
+		if(state.matrix[enemy_position.line][enemy_position.col] == getSymbol()) {
 			state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
-		}else{
+		} else if(state.matrix[enemy_position.line][enemy_position.col] == getSymbolTrap())
+		{
+			state.matrix[enemy_position.line][enemy_position.col] = state_abst.TRAP;
+		}
+		else
+		{
 			state.matrix[enemy_position.line][enemy_position.col] = state_abst.KEY;
 		}
 	}
@@ -135,7 +140,6 @@ public abstract class Enemy{
 
 	public PointDimension<Integer> getEnemy_position() {
 		return enemy_position.getClone();
-		
 	}
 
 	private String name;
@@ -149,4 +153,5 @@ public abstract class Enemy{
 	}
 	public abstract GameArea.state_abst getSymbol();
 	public abstract GameArea.state_abst getSymbolKey();
+	public abstract GameArea.state_abst getSymbolTrap();
 }
