@@ -4,7 +4,7 @@ import agent.State;
 
 public class DepthLimitedSearch extends DepthFirstSearch {
 
-    private int limit;
+    public int limit;
 
     public DepthLimitedSearch() {
         this(28);

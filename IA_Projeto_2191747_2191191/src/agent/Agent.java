@@ -8,7 +8,9 @@ import enemies.Enemy;
 import enemies.EnemyAction;
 import gui.PointDimension;
 import mummymaze.ActionDown;
+import mummymaze.HeuristicNumberEnemies;
 import mummymaze.HeuristicShortTileDistance;
+import mummymaze.HeuristicShortTileDistanceWonky;
 import mummymaze.HeuristicTileDistance;
 import searchmethods.*;
 
@@ -27,9 +29,12 @@ public class Agent<E extends State>
         	new BeamSearch(),
         	new IDAStarSearch()
 	};
+	//HEURISTICAS ADD!!
 	public static Heuristic[] heuristics_st={
 		new HeuristicTileDistance(),
-		new HeuristicShortTileDistance()
+		new HeuristicShortTileDistance(),
+		new HeuristicShortTileDistanceWonky(),
+		new HeuristicNumberEnemies()
 	};
     //protected ArrayList<SearchMethod> searchMethods;
     protected SearchMethod searchMethod;

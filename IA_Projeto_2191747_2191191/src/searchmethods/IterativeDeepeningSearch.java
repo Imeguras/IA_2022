@@ -21,7 +21,7 @@ public class IterativeDeepeningSearch extends DepthLimitedSearch
      * this optimization.
      */
 
-    private int limit;
+	
 
 	public IterativeDeepeningSearch(){
 

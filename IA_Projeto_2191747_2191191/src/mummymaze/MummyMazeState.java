@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable{
-	
+	private LinkedList<PointDimension<Integer>> state_doors;
     public static final int SIZE = 13;
     public boolean hero_dead = true;
 
@@ -38,11 +38,13 @@ public class MummyMazeState extends State implements Cloneable{
 
     public MummyMazeState(char[][] char_matrix){
 		super();
+		state_doors= new LinkedList<PointDimension<Integer>>();
         this.matrix = new state_abst[SIZE][SIZE];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = state_abst.getCorChar(char_matrix[i][j]);
                 switch (matrix[i][j]) {
+					case HEROKEY:
 					case HERO:
 						hero_line = i;
 						hero_column = j;
@@ -62,6 +64,12 @@ public class MummyMazeState extends State implements Cloneable{
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
 						enemies.sort(cmp2);
 						break; 	
+					case DOOR_HORIZONTAL_CLOSED:
+					case DOOR_HORIZONTAL_OPENED:
+					case DOOR_VERTICAL_CLOSED:
+					case DOOR_VERTICAL_OPENED:
+						state_doors.add(new PointDimension<Integer>(i, j));
+						break; 
 					default:
 						break;
 				}
@@ -75,12 +83,14 @@ public class MummyMazeState extends State implements Cloneable{
 	}	
     public MummyMazeState(state_abst[][] cloned_matrix, LinkedList<Action> subTurnsPersisted){
 		super(subTurnsPersisted);
+		state_doors= new LinkedList<PointDimension<Integer>>();
 		this.matrix = new state_abst[SIZE][SIZE];
 		//this.matrix= cloned_matrix;
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
 				this.matrix[i][j] = cloned_matrix[i][j];
 				switch (matrix[i][j]) {
+					case HEROKEY:
 					case HERO:
 						hero_line = i;
 						hero_column = j;
@@ -100,12 +110,18 @@ public class MummyMazeState extends State implements Cloneable{
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
 						enemies.sort(cmp2);
 						break; 
+					case DOOR_HORIZONTAL_CLOSED:
+					case DOOR_HORIZONTAL_OPENED:
+					case DOOR_VERTICAL_CLOSED:
+					case DOOR_VERTICAL_OPENED:
+						state_doors.add(new PointDimension<Integer>(i, j));
 					default:
 						break;
 				}
 			}
 		}
 	}
+
 	@Override
     public void executeAction(Action action){
         
@@ -134,6 +150,7 @@ public class MummyMazeState extends State implements Cloneable{
 					return false;
 			}
 			switch(matrix[block_above][hero_column]){
+				//TODO MUMMYS COM CHAVES
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
@@ -250,9 +267,20 @@ public class MummyMazeState extends State implements Cloneable{
     {
         int block_above = hero_line - 2;
         int space_above = hero_line - 1;
-
-        matrix[block_above][hero_column] = state_abst.HERO;
-        matrix[hero_line][hero_column] =state_abst.WALKABLE;
+	
+		
+		if(matrix[block_above][hero_column]==state_abst.KEY){
+			matrix[block_above][hero_column] = state_abst.HEROKEY;
+			open_close_door();
+		}else{
+			matrix[block_above][hero_column] = state_abst.HERO;
+		}
+		if(matrix[hero_line][hero_column]!=state_abst.HEROKEY){
+			matrix[hero_line][hero_column] =state_abst.WALKABLE;
+		}else{
+			matrix[hero_line][hero_column] = state_abst.KEY;
+		}
+       
 		
         hero_line = block_above;
 		
@@ -263,8 +291,17 @@ public class MummyMazeState extends State implements Cloneable{
         int block_below = hero_line + 2;
         int space_below = hero_line + 1;
 
-        matrix[block_below][hero_column] = state_abst.HERO;
-        matrix[hero_line][hero_column] = state_abst.WALKABLE;
+		if(matrix[block_below][hero_column]==state_abst.KEY){
+			matrix[block_below][hero_column] = state_abst.HEROKEY;
+			open_close_door();
+		}else{
+			matrix[block_below][hero_column] = state_abst.HERO;
+		}
+		if(matrix[hero_line][hero_column]!=state_abst.HEROKEY){
+			matrix[hero_line][hero_column] =state_abst.WALKABLE;
+		}else{
+			matrix[hero_line][hero_column] = state_abst.KEY;
+		}
 
         hero_line = block_below;
 		
@@ -274,9 +311,17 @@ public class MummyMazeState extends State implements Cloneable{
     {
         int block_left = hero_column - 2;
         int space_left = hero_column - 1;
-
-        matrix[hero_line][block_left] = state_abst.HERO;
-        matrix[hero_line][hero_column] =state_abst.WALKABLE;
+		if(matrix[hero_line][block_left]==state_abst.KEY){
+			matrix[hero_line][block_left] = state_abst.HEROKEY;
+			open_close_door();
+		}else{
+			matrix[hero_line][block_left] = state_abst.HERO;
+		}
+		if(matrix[hero_line][hero_column]!=state_abst.HEROKEY){
+			matrix[hero_line][hero_column] =state_abst.WALKABLE;
+		}else{
+			matrix[hero_line][hero_column] = state_abst.KEY;
+		}
 
         hero_column = block_left;
 		
@@ -286,9 +331,17 @@ public class MummyMazeState extends State implements Cloneable{
     {
         int block_right = hero_column + 2;
         int space_right = hero_column + 1;
-
-        matrix[hero_line][block_right] = state_abst.HERO;
-        matrix[hero_line][hero_column] = state_abst.WALKABLE;
+		if(matrix[hero_line][block_right]==state_abst.KEY){
+			matrix[hero_line][block_right] = state_abst.HEROKEY;
+			open_close_door();
+		}else{
+			matrix[hero_line][block_right] = state_abst.HERO;
+		}
+		if(matrix[hero_line][hero_column]!=state_abst.HEROKEY){
+			matrix[hero_line][hero_column] =state_abst.WALKABLE;
+		}else{
+			matrix[hero_line][hero_column] = state_abst.KEY;
+		}
 
         hero_column = block_right;
 		
@@ -384,5 +437,34 @@ public class MummyMazeState extends State implements Cloneable{
             listener.puzzleChanged(null);
         }
     }
-	
+
+	private void open_close_door(){
+		PointDimension<Integer> t;
+		for(PointDimension<Integer> door : state_doors) {
+			
+		
+			int line=door.line;
+			int coluna=door.col;
+			switch (matrix[line][coluna]) {
+				case DOOR_HORIZONTAL_OPENED:
+					matrix[line][coluna]=state_abst.DOOR_HORIZONTAL_CLOSED;
+					break;
+				case DOOR_HORIZONTAL_CLOSED:
+					matrix[line][coluna]=state_abst.DOOR_HORIZONTAL_OPENED;
+					break;
+				case DOOR_VERTICAL_CLOSED:
+					matrix[line][coluna]=state_abst.DOOR_VERTICAL_OPENED;
+					break;
+				case DOOR_VERTICAL_OPENED:
+					matrix[line][coluna]=state_abst.DOOR_VERTICAL_CLOSED;
+					break; 
+				default:
+					break; 
+			}
+
+        }   
+           
+
+        
+    }
 }

@@ -3,7 +3,7 @@ package mummymaze;
 import agent.Heuristic;
 import enemies.Enemy;
 
-public class HeuristicShortTileDistance extends Heuristic<MummyMazeProblem, MummyMazeState>{
+public class HeuristicShortTileDistanceWonky extends Heuristic<MummyMazeProblem, MummyMazeState>{
 
     @Override
     public double compute(MummyMazeState state){
@@ -15,14 +15,13 @@ public class HeuristicShortTileDistance extends Heuristic<MummyMazeProblem, Mumm
 				min_dist=dist;
 			}
 		}
-		//maior distancia ao mais curto e melhor
-		return -min_dist;
+		//estranhamente a mumia tende a ficar presa quando esta perto do jogador
+		return min_dist;
 		
-        //return state.getHero_pos().geometricCompareTo(.getExit_pos());
     }
     
     @Override
     public String toString(){
-        return "The shortest Hypothenuse to the enemy position(bigger distance is better)";
+        return "The shortest Hypothenuse to the enemy position(shorter distance is better)";
     }
 }

@@ -42,6 +42,10 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		TRAP('A'),
 		SCORPION('E'),
 		KEY('C'),
+		WHITEKEY('Z'),
+		REDKEY('W'),
+		SCORPIONKEY('Y'),
+		HEROKEY('K'),
 		STAIRS('S'),
 		WALKABLE('.'),
 		VOID(' '),
@@ -115,6 +119,8 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		doorHorizontalClosed = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/portaHorizontalFechada.png"));
 		doorVerticalOpen = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/portaVerticalAberta.png"));
 		doorVerticalClosed = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/portaVerticalFechada.png"));
+		
+
 	}
 	
 	protected void paintComponent(Graphics g){
@@ -144,6 +150,11 @@ public class GameArea extends JPanel implements MummyMazeListener {
 					case 'E' : g.drawImage(scorpion,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
 					case 'C' : g.drawImage(key,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
 					case 'S' : g.drawImage(i == 0 ? stairsUp : i == 12 ? stairsDown : j == 0 ? stairsLeft : stairsRight,j == 0 ? xStart + (j-2)/2 * 60 : xStart + j/2 * 60, i ==0 ? yStart + (i-2)/2 * 60 -6 : yStart + i/2 * 60,this); break;
+					case 'Z' : g.drawImage(mummyWhite,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
+					case 'W' : g.drawImage(mummyRed,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
+					case 'Y' : g.drawImage(scorpion,xStart + j/2 * 60,yStart + i/2 * 60,this); break;
+					case 'K' :  g.drawImage(hero,j == 0 ? xStart + (j-2)/2 * 60 : xStart + j/2 * 60, i ==0 ? yStart + (i-2)/2 * 60 -6 : yStart + i/2 * 60,this); break;
+					
 				}
 			}
 		}
