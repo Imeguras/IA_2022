@@ -41,76 +41,79 @@ public class WhiteMummy extends Enemy{
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_down = enemy_position.line + 2;
 		int space_down = enemy_position.line + 1;
 		
-		
+		futureStompVertical(state, block_down);
 		//verification for whats in the next tile
-		switch (state.matrix[block_down][enemy_position.col]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[block_down][enemy_position.col] = getSymbol();
+		
+		
 		
 		enemy_position.line=block_down;
 	}
 
 	@Override
 	public void MoveUp(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_up = enemy_position.line - 2;
 		int space_up = enemy_position.line - 1;
 		
 		//verification for whats in the next tile
+		futureStompVertical(state, block_up);
+		
+		enemy_position.line=block_up;
+		
+	}
+
+	private void futureStompVertical(MummyMazeState state, int block_up) {
 		switch (state.matrix[block_up][enemy_position.col]) {
 			case HERO:
 				state.hero_dead = true;
 				break;
+			case KEY:
+				state.matrix[block_up][enemy_position.col] = state_abst.WHITEKEY;
+				state.open_close_door();	
+				break;
 			default:
+				state.matrix[block_up][enemy_position.col] = getSymbol();	
 				break;
 		}
-		state.matrix[block_up][enemy_position.col] = getSymbol();
-		enemy_position.line=block_up;
-		
 	}
-	@Override
-	public void MoveRight(MummyMazeState state){
-
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
-		int block_right = enemy_position.col + 2;
-		int space_right = enemy_position.col + 1;
-		//verification for whats in the next tile
-		switch (state.matrix[enemy_position.line][block_right]) {
+	private void futureStompHorizontal(MummyMazeState state, int block_up) {
+		switch (state.matrix[enemy_position.line][block_up]) {
 			case HERO:
 				state.hero_dead = true;
 				break;
+			case KEY:
+				state.matrix[enemy_position.line][block_up] = state_abst.WHITEKEY;
+				state.open_close_door();	
+				break;
 			default:
+				state.matrix[enemy_position.line][block_up] = getSymbol();	
 				break;
 		}
-		state.matrix[enemy_position.line][block_right] = getSymbol();
+	}
+
+	@Override
+	public void MoveRight(MummyMazeState state){
+		trailBehind(state);
+
+
+		int block_right = enemy_position.col + 2;
+		int space_right = enemy_position.col + 1;
+		//verification for whats in the next tile
+		futureStompHorizontal(state, block_right);
 		enemy_position.col=block_right;
 	}
 	 
 
 	@Override
 	public void MoveLeft(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_left = enemy_position.col - 2;
 		int space_left = enemy_position.col - 1;
-		
-		//verification for whats in the next tile
-		switch (state.matrix[enemy_position.line][block_left]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[enemy_position.line][block_left] = getSymbol();
+		futureStompHorizontal(state, block_left);
 		enemy_position.col=block_left;
 	}
 	@Override 

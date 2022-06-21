@@ -25,7 +25,7 @@ public class RedMummy extends Enemy{
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_down = enemy_position.line + 2;
 		int space_down = enemy_position.line + 1;
 		
@@ -45,7 +45,7 @@ public class RedMummy extends Enemy{
 
 	@Override
 	public void MoveUp(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_up = enemy_position.line - 2;
 		int space_up = enemy_position.line - 1;
 		
@@ -63,7 +63,7 @@ public class RedMummy extends Enemy{
 	}
 	@Override
 	public void MoveRight(MummyMazeState state){
-
+		trailBehind(state);
 		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_right = enemy_position.col + 2;
 		int space_right = enemy_position.col + 1;
@@ -82,7 +82,7 @@ public class RedMummy extends Enemy{
 
 	@Override
 	public void MoveLeft(MummyMazeState state) {
-		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		trailBehind(state);
 		int block_left = enemy_position.col - 2;
 		int space_left = enemy_position.col - 1;
 		

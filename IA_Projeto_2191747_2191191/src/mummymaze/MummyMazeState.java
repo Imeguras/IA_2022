@@ -438,7 +438,7 @@ public class MummyMazeState extends State implements Cloneable{
         }
     }
 
-	private void open_close_door(){
+	public void open_close_door(){
 		PointDimension<Integer> t;
 		for(PointDimension<Integer> door : state_doors) {
 			

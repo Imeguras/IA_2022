@@ -84,7 +84,13 @@ public abstract class Enemy{
 		}
 		return true;
 	}
-	
+	public void trailBehind(MummyMazeState state) {
+		if(state.matrix[enemy_position.line][enemy_position.col] == getSymbol()){
+			state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
+		}else{
+			state.matrix[enemy_position.line][enemy_position.col] = state_abst.KEY;
+		}
+	}
 	public abstract void MoveDown(MummyMazeState state);
 	public abstract void MoveUp(MummyMazeState state);
 	public abstract void MoveLeft(MummyMazeState state);
