@@ -28,7 +28,7 @@ public class RedMummy extends Enemy{
 		trailBehind(state);
 		int block_down = enemy_position.line + 2;
 		int space_down = enemy_position.line + 1;
-		
+		futureStompVertical(state, block_down);
 		
 		
 		enemy_position.line=block_down;
@@ -40,7 +40,7 @@ public class RedMummy extends Enemy{
 		int block_up = enemy_position.line - 2;
 		int space_up = enemy_position.line - 1;
 		
-
+		futureStompVertical(state, block_up);
 		enemy_position.line=block_up;
 		
 	}
@@ -51,7 +51,7 @@ public class RedMummy extends Enemy{
 		int block_right = enemy_position.col + 2;
 		int space_right = enemy_position.col + 1;
 		
-	
+		futureStompHorizontal(state, block_right);
 		enemy_position.col=block_right;
 	}
 	 
@@ -61,7 +61,7 @@ public class RedMummy extends Enemy{
 		trailBehind(state);
 		int block_left = enemy_position.col - 2;
 		int space_left = enemy_position.col - 1;
-		
+		futureStompHorizontal(state, block_left);
 
 	
 		enemy_position.col=block_left;
