@@ -155,16 +155,19 @@ public class MummyMazeState extends State implements Cloneable{
         int space_below = hero_line + 1;
         if(isValidPosition(block_below, hero_column)){   //If the position exists on the matrix
             //wall/door
-            switch(matrix[space_below][hero_column]){
+            switch (matrix[space_below][hero_column]){
+                case WALL_HORIZONTAL:
+                case DOOR_HORIZONTAL_CLOSED:
+                    return false;
+            }
+
+            switch(matrix[block_below][hero_column]){
             
-				case WALL_HORIZONTAL: 
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
-				case DOOR_HORIZONTAL_CLOSED:
-				case SCORPION: 
+				case SCORPION:
 					return false;
-			
 				default:
 					return true;
 					
@@ -185,14 +188,16 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(hero_line, block_left))   //If the position exists on the matrix
         {
             //wall/door
-
+            switch (matrix[space_left][hero_column]){
+                case WALL_VERTICAL:
+                case DOOR_VERTICAL_CLOSED:
+                    return false;
+            }
 			switch(matrix[hero_line][space_left]){
-				case WALL_VERTICAL: 
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
-				case DOOR_VERTICAL_CLOSED:
-				case SCORPION: 
+				case SCORPION:
 					return false;
 		
 				default:
@@ -216,14 +221,16 @@ public class MummyMazeState extends State implements Cloneable{
         int space_right = hero_column + 1;
         if(isValidPosition(hero_line, block_right))   //If the position exists on the matrix
         {
-        
-            switch(matrix[hero_line][space_right]){	
-				case WALL_VERTICAL: 
+            switch (matrix[space_right][hero_column]){
+                case WALL_VERTICAL:
+                case DOOR_VERTICAL_CLOSED:
+                    return false;
+            }
+            switch(matrix[hero_line][space_right]){
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
-				case DOOR_VERTICAL_CLOSED:
-				case SCORPION: 
+				case SCORPION:
 					return false;		
 				default:
 					return true;
