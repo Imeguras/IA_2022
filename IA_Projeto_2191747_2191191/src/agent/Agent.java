@@ -8,6 +8,7 @@ import enemies.Enemy;
 import enemies.EnemyAction;
 import gui.PointDimension;
 import mummymaze.ActionDown;
+import mummymaze.HeuristicGeometricTileDistance;
 import mummymaze.HeuristicNumberEnemies;
 import mummymaze.HeuristicShortTileDistance;
 import mummymaze.HeuristicShortTileDistanceWonky;
@@ -34,7 +35,8 @@ public class Agent<E extends State>
 		new HeuristicTileDistance(),
 		new HeuristicShortTileDistance(),
 		new HeuristicShortTileDistanceWonky(),
-		new HeuristicNumberEnemies()
+		new HeuristicNumberEnemies(),
+		new HeuristicGeometricTileDistance()
 	};
     //protected ArrayList<SearchMethod> searchMethods;
     protected SearchMethod searchMethod;
