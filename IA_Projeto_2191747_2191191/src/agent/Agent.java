@@ -1,5 +1,6 @@
 package agent;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -50,7 +51,10 @@ public class Agent<E extends State>
             heuristic.setProblem(problem);
         }*/
         solution = searchMethod.search(problem);
-
+		//for each solution.getActions print action.toString()
+		for (Action k: solution.getActions()) {
+			System.out.println(k.toString());
+		}
         return solution;
     }
 

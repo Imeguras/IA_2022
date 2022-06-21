@@ -10,7 +10,10 @@ public abstract class State
     public State(){
 		actions = new LinkedList<Action>();
 	}
-
+	public State(LinkedList<Action> subTurnsPersisted){
+		this();
+		actions.addAll(subTurnsPersisted);
+	}
     public abstract void executeAction(Action action);
 	/*
 	 * @Summary: Executes every action in the states Actions list

@@ -63,7 +63,11 @@ public class MummyMazeState extends State implements Cloneable{
 		
     }
 	public MummyMazeState(state_abst[][] cloned_matrix){
-		super();
+		this(cloned_matrix, new LinkedList<Action>());
+
+	}	
+    public MummyMazeState(state_abst[][] cloned_matrix, LinkedList<Action> subTurnsPersisted){
+		super(subTurnsPersisted);
 		this.matrix = new state_abst[SIZE][SIZE];
 		//this.matrix= cloned_matrix;
 		for (int i = 0; i < matrix.length; i++) {
@@ -89,9 +93,8 @@ public class MummyMazeState extends State implements Cloneable{
 				}
 			}
 		}
-
-	}	
-    @Override
+	}
+	@Override
     public void executeAction(Action action){
         
 		action.execute(this);
@@ -330,8 +333,16 @@ public class MummyMazeState extends State implements Cloneable{
 
     @Override
     public MummyMazeState clone() {
-        return new MummyMazeState(this.matrix);
+        return new MummyMazeState(this.matrix, this.actions);
     } 
+
+	public MummyMazeState clone(boolean cloneActions) {
+		if(cloneActions){
+			return new MummyMazeState(this.matrix, this.actions);
+		}
+		return new MummyMazeState(this.matrix);
+	}
+
 
     //Listeners
     private transient ArrayList<MummyMazeListener> listeners = new ArrayList<MummyMazeListener>(3);

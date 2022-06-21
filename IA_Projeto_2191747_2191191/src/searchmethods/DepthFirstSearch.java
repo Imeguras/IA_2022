@@ -33,10 +33,8 @@ public class DepthFirstSearch extends GraphSearch<NodeLinkedList> {
 			addSuccessorsToFrontier(successors, n);
 			//It only is the goalState if the enemies can't kill the hero when he is on the goal state
 			
-            //frontier.add(suc)
-			//addSuccessorsToFrontier(successors, frontierNode);
-
-            //computeStatistics(successors.size());
+           
+            computeStatistics(successors.size());
 
         }
 		

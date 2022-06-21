@@ -15,4 +15,8 @@ public abstract class Action <S extends State>{
     public double getCost(){
         return cost;
     }
+	public String toString(){
+		// return name of the class of the action
+		return this.getClass().getName();
+	}
 }

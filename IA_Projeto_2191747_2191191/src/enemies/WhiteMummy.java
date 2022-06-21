@@ -41,10 +41,11 @@ public class WhiteMummy extends Enemy{
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
+		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_down = enemy_position.line + 2;
 		int space_down = enemy_position.line + 1;
 		
-		state.matrix[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE;
+		
 		//verification for whats in the next tile
 		switch (state.matrix[block_down][enemy_position.col]) {
 			case HERO:
@@ -60,9 +61,10 @@ public class WhiteMummy extends Enemy{
 
 	@Override
 	public void MoveUp(MummyMazeState state) {
+		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_up = enemy_position.line - 2;
 		int space_up = enemy_position.line - 1;
-		state.matrix[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE;
+		
 		//verification for whats in the next tile
 		switch (state.matrix[block_up][enemy_position.col]) {
 			case HERO:
@@ -77,9 +79,10 @@ public class WhiteMummy extends Enemy{
 	}
 	@Override
 	public void MoveRight(MummyMazeState state){
+
+		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_right = enemy_position.col + 2;
 		int space_right = enemy_position.col + 1;
-		state.matrix[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE;
 		//verification for whats in the next tile
 		switch (state.matrix[enemy_position.line][block_right]) {
 			case HERO:
@@ -89,15 +92,16 @@ public class WhiteMummy extends Enemy{
 				break;
 		}
 		state.matrix[enemy_position.line][block_right] = getSymbol();
-		enemy_position.col = block_right;
+		enemy_position.col=block_right;
 	}
 	 
 
 	@Override
 	public void MoveLeft(MummyMazeState state) {
+		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_left = enemy_position.col - 2;
 		int space_left = enemy_position.col - 1;
-		state.matrix[enemy_position.line][enemy_position.col] = GameArea.state_abst.WALKABLE;
+		
 		//verification for whats in the next tile
 		switch (state.matrix[enemy_position.line][block_left]) {
 			case HERO:

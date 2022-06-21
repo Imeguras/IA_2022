@@ -42,9 +42,11 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         LinkedList<MummyMazeState> successors= new LinkedList<>();
         for(Action a: actions){
             if(a.isValid(state)){
-                MummyMazeState successor = (MummyMazeState) state.clone();
+                MummyMazeState successor = (MummyMazeState) state.clone(false);
                 a.execute(successor);
-				
+				for (Enemy cur_subturn : successor.enemies) {
+					successor=cur_subturn.MovePoll(successor);
+				}
 				
                 successors.add(successor);
             }
