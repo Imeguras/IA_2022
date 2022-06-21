@@ -20,8 +20,12 @@ public class Solution {
 			 */
 			ListIterator<Action> t=node.getState().getActions().listIterator();
 			
-			for (Action k; t.hasNext();) {
-				k=t.next();
+			//go to last in turn
+			while (t.hasNext()) {
+				t.next(); 
+			}
+			for (Action k; t.hasPrevious();) {
+				k=t.previous();
 				actions.addFirst(k);
 			}
 			node = node.getParent();
