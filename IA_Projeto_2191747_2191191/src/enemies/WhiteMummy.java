@@ -38,6 +38,10 @@ public class WhiteMummy extends Enemy{
 	public state_abst getSymbol(){
 		return state_abst.MUMMY_WHITE;
 	}
+	@Override
+	public state_abst getSymbolKey(){
+		return state_abst.WHITEKEY;
+	}
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
@@ -66,34 +70,7 @@ public class WhiteMummy extends Enemy{
 		
 	}
 
-	private void futureStompVertical(MummyMazeState state, int block_up) {
-		switch (state.matrix[block_up][enemy_position.col]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			case KEY:
-				state.matrix[block_up][enemy_position.col] = state_abst.WHITEKEY;
-				state.open_close_door();	
-				break;
-			default:
-				state.matrix[block_up][enemy_position.col] = getSymbol();	
-				break;
-		}
-	}
-	private void futureStompHorizontal(MummyMazeState state, int block_up) {
-		switch (state.matrix[enemy_position.line][block_up]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			case KEY:
-				state.matrix[enemy_position.line][block_up] = state_abst.WHITEKEY;
-				state.open_close_door();	
-				break;
-			default:
-				state.matrix[enemy_position.line][block_up] = getSymbol();	
-				break;
-		}
-	}
+
 
 	@Override
 	public void MoveRight(MummyMazeState state){

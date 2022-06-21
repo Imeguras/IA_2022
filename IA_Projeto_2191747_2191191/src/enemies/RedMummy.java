@@ -30,15 +30,6 @@ public class RedMummy extends Enemy{
 		int space_down = enemy_position.line + 1;
 		
 		
-		//verification for whats in the next tile
-		switch (state.matrix[block_down][enemy_position.col]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[block_down][enemy_position.col] = getSymbol();
 		
 		enemy_position.line=block_down;
 	}
@@ -49,15 +40,7 @@ public class RedMummy extends Enemy{
 		int block_up = enemy_position.line - 2;
 		int space_up = enemy_position.line - 1;
 		
-		//verification for whats in the next tile
-		switch (state.matrix[block_up][enemy_position.col]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[block_up][enemy_position.col] = getSymbol();
+
 		enemy_position.line=block_up;
 		
 	}
@@ -67,15 +50,8 @@ public class RedMummy extends Enemy{
 		state.matrix[enemy_position.line][enemy_position.col] = state_abst.WALKABLE;
 		int block_right = enemy_position.col + 2;
 		int space_right = enemy_position.col + 1;
-		//verification for whats in the next tile
-		switch (state.matrix[enemy_position.line][block_right]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[enemy_position.line][block_right] = getSymbol();
+		
+	
 		enemy_position.col=block_right;
 	}
 	 
@@ -86,15 +62,8 @@ public class RedMummy extends Enemy{
 		int block_left = enemy_position.col - 2;
 		int space_left = enemy_position.col - 1;
 		
-		//verification for whats in the next tile
-		switch (state.matrix[enemy_position.line][block_left]) {
-			case HERO:
-				state.hero_dead = true;
-				break;
-			default:
-				break;
-		}
-		state.matrix[enemy_position.line][block_left] = getSymbol();
+
+	
 		enemy_position.col=block_left;
 	}
 
@@ -144,6 +113,10 @@ public class RedMummy extends Enemy{
 	@Override
 	public state_abst getSymbol(){
 		return state_abst.MUMMY_RED;
+	}
+	@Override
+	public state_abst getSymbolKey(){
+		return state_abst.REDKEY;
 	}
 	@Override
 	public boolean canKill(MummyMazeState state) {

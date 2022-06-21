@@ -91,6 +91,34 @@ public abstract class Enemy{
 			state.matrix[enemy_position.line][enemy_position.col] = state_abst.KEY;
 		}
 	}
+	public void futureStompVertical(MummyMazeState state, int block_up) {
+		switch (state.matrix[block_up][enemy_position.col]) {
+			case HERO:
+				state.hero_dead = true;
+				break;
+			case KEY:
+				state.matrix[block_up][enemy_position.col] = getSymbolKey();
+				state.open_close_door();	
+				break;
+			default:
+				state.matrix[block_up][enemy_position.col] = getSymbol();	
+				break;
+		}
+	}
+	public void futureStompHorizontal(MummyMazeState state, int block_up) {
+		switch (state.matrix[enemy_position.line][block_up]) {
+			case HERO:
+				state.hero_dead = true;
+				break;
+			case KEY:
+				state.matrix[enemy_position.line][block_up] = getSymbolKey();
+				state.open_close_door();	
+				break;
+			default:
+				state.matrix[enemy_position.line][block_up] = getSymbol();	
+				break;
+		}
+	}
 	public abstract void MoveDown(MummyMazeState state);
 	public abstract void MoveUp(MummyMazeState state);
 	public abstract void MoveLeft(MummyMazeState state);
@@ -120,4 +148,5 @@ public abstract class Enemy{
 		this.name = name;
 	}
 	public abstract GameArea.state_abst getSymbol();
+	public abstract GameArea.state_abst getSymbolKey();
 }
