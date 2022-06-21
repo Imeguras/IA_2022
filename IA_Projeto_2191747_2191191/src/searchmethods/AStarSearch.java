@@ -7,9 +7,8 @@ public class AStarSearch extends InformedSearch {
     //f = g + h
     @Override
     public void addSuccessorToFrontier(State successor, Node parent) {
-
-        //TODO
-        double g = parent.getG() + successor.getAction().getCost();
+		// this shouldnt be done like so... but for this project since other entities dont add up to the cost this is a simple fix
+        double g = parent.getG() + successor.getHeroAction().getCost();
 
         if(frontier.containsState(successor))
         {

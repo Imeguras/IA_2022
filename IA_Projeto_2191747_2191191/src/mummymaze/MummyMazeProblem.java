@@ -76,6 +76,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState>
         MummyMazeState successor = state.clone();
        
 		action.execute(successor);
+
 		for (Enemy cur_subturn : successor.enemies) {
 			successor=cur_subturn.MovePoll(successor);
 		}

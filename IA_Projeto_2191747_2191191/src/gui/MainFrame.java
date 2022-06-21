@@ -26,6 +26,7 @@ import javax.swing.SwingWorker;
 
 import mummymaze.MummyMazeAgent;
 import mummymaze.MummyMazeProblem;
+import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
@@ -257,7 +258,8 @@ public class MainFrame extends JFrame {
 					agent.readInitialStateFromFile(toopen);
 					toopen="";
                     prepareSearchAlgorithm();
-                    MummyMazeProblem problem = new MummyMazeProblem(agent.getEnvironment().clone());
+					MummyMazeState a = agent.getEnvironment().clone();
+                    MummyMazeProblem problem = new MummyMazeProblem(a);
 					
                     agent.solveProblem(problem);
                 } catch (Exception e) {

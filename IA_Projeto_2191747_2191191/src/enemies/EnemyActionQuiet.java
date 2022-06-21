@@ -14,7 +14,7 @@ public class EnemyActionQuiet extends EnemyAction {
 	}
 	@Override
 	public void execute(MummyMazeState state) {
-		state.setAction(this);
+		state.addAction(this);
 		
 	}
 	@Override

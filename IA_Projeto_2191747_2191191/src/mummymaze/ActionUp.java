@@ -12,7 +12,7 @@ public class ActionUp extends Action<MummyMazeState>{
     @Override
     public void execute(MummyMazeState state){
         state.moveUp();
-        state.setAction(this);
+        state.addAction(this);
     }
 
     @Override

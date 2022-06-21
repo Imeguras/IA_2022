@@ -2,6 +2,8 @@ package agent;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+
 import searchmethods.Node;
 
 public class Solution {
@@ -13,8 +15,16 @@ public class Solution {
         Node node = goalNode;
         actions = new LinkedList<>();
         while(node.getParent() != null){
-            actions.addFirst(node.getState().getAction());
-            node = node.getParent();
+			/*
+			 * add every action in node.getState.getActions to the actions list
+			 */
+			ListIterator<Action> t=node.getState().getActions().listIterator();
+			
+			for (Action k; t.hasNext();) {
+				k=t.next();
+				actions.addFirst(k);
+			}
+			node = node.getParent();
         }        
     }
 

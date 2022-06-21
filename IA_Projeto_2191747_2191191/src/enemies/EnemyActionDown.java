@@ -17,7 +17,7 @@ public class EnemyActionDown extends EnemyAction {
 	@Override
 	public void execute(MummyMazeState State) {
 		trackingEnemy.MoveDown(State);
-		State.setAction(this);
+		State.addAction(this);
 	}
 
 	@Override

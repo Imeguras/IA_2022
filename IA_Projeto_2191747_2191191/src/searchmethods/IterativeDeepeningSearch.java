@@ -42,8 +42,7 @@ public class IterativeDeepeningSearch extends DepthFirstSearch
     }
 
     @Override
-    protected Solution graphSearch(Problem problem)
-    {
+    protected Solution graphSearch(Problem problem){
         //TODO
         frontier.clear();
         frontier.add(new Node(problem.getInitialState()));

@@ -28,10 +28,10 @@ public class WhiteMummy extends Enemy{
 	public WhiteMummy(PointDimension<Integer> enemy_position, String name){
         super(enemy_position, "White Mummy");
 		actions = new LinkedList<EnemyAction>();
+		this.actions.add(new EnemyActionLeft(this));
+        this.actions.add(new EnemyActionRight(this));
 		this.actions.add(new EnemyActionDown(this));
         this.actions.add(new EnemyActionUp(this));
-        this.actions.add(new EnemyActionLeft(this));
-        this.actions.add(new EnemyActionRight(this));
 		this.actions.add(new EnemyActionQuiet(this));
     }
 	@Override

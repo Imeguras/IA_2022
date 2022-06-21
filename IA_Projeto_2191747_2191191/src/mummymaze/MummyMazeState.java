@@ -36,6 +36,7 @@ public class MummyMazeState extends State implements Cloneable{
 	}
 
     public MummyMazeState(char[][] char_matrix){
+		super();
         this.matrix = new state_abst[SIZE][SIZE];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -62,6 +63,7 @@ public class MummyMazeState extends State implements Cloneable{
 		
     }
 	public MummyMazeState(state_abst[][] cloned_matrix){
+		super();
 		this.matrix = new state_abst[SIZE][SIZE];
 		//this.matrix= cloned_matrix;
 		for (int i = 0; i < matrix.length; i++) {
@@ -94,14 +96,17 @@ public class MummyMazeState extends State implements Cloneable{
         
 		action.execute(this);
 		firePuzzleChanged(null);
-		/*MummyMazeState subTurn= this;
-		for (Enemy enemySubTurn : enemies) {
-			enemySubTurn.updateState(subTurn);
-			subTurn=enemySubTurn.move().clone();
-			subTurn.firePuzzleChanged(null);
-		}*/
     }
-
+	/*
+	 * @Summary: Executes all subturns(actions) inside actions which represents a full turn
+	 */
+	@Override
+	public void executeTurn() {
+		for (Action<MummyMazeState> action : actions) {
+			action.execute(this);
+		}		     
+		firePuzzleChanged(null);
+	}
     public boolean canMoveUp(){
         //If the tile next to hero on the right is a vertical wall (|) or
         // closed door (=) it cannot move
@@ -348,4 +353,5 @@ public class MummyMazeState extends State implements Cloneable{
             listener.puzzleChanged(null);
         }
     }
+	
 }

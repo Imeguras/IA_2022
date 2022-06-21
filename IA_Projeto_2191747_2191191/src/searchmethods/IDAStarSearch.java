@@ -27,7 +27,8 @@ public class IDAStarSearch extends InformedSearch {
     @Override
     public void addSuccessorToFrontier(State successor, Node parent)
     {
-            double g = parent.getG() + successor.getAction().getCost();
+			// this shouldnt be done like so... but for this project since other entities dont add up to the cost this is a simple fix
+            double g = parent.getG() + successor.getHeroAction().getCost();
             if (!frontier.containsState(successor)) {
                 double f = g + heuristic.compute(successor);
                 if (f <= limit) {

@@ -13,7 +13,7 @@ public class ActionDown extends Action<MummyMazeState>{
     @Override
     public void execute(MummyMazeState state){
         state.moveDown();
-        state.setAction(this);
+        state.addAction(this);
     }
 
     @Override
