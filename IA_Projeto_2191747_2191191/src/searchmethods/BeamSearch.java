@@ -1,6 +1,7 @@
 package searchmethods;
 
 import agent.State;
+import utils.NodePriorityQueue;
 
 public class BeamSearch extends AStarSearch {
 
@@ -17,7 +18,14 @@ public class BeamSearch extends AStarSearch {
     @Override
     public void addSuccessorToFrontier(State successor, Node parent)
     {
-        //TODO
+		super.addSuccessorToFrontier(successor, parent);
+        NodePriorityQueue aux = new NodePriorityQueue();
+        while (frontier.size()< beamSize){
+            aux.add(frontier.remove());
+        }
+        frontier= aux;
+        // elimina os piores nos da fronteira(meno prioridade) cate a fronteira ficar com tamanho beamSize
+       
 
     }
 

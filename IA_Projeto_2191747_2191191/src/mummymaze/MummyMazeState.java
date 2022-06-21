@@ -56,10 +56,12 @@ public class MummyMazeState extends State implements Cloneable{
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
+						break; 
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
-						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
-						enemies.sort(cmp2);	
+						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
+						enemies.sort(cmp2);
+						break; 	
 					default:
 						break;
 				}
@@ -92,10 +94,12 @@ public class MummyMazeState extends State implements Cloneable{
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
+						break;
 					case MUMMY_RED:
 						EnemyOrderComparator cmp2= new EnemyOrderComparator();
 						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
 						enemies.sort(cmp2);
+						break; 
 					default:
 						break;
 				}
@@ -188,12 +192,12 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(hero_line, block_left))   //If the position exists on the matrix
         {
             //wall/door
-            switch (matrix[space_left][hero_column]){
+            switch (matrix[hero_line][space_left]){
                 case WALL_VERTICAL:
                 case DOOR_VERTICAL_CLOSED:
                     return false;
             }
-			switch(matrix[hero_line][space_left]){
+			switch(matrix[hero_line][block_left]){
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
@@ -221,12 +225,12 @@ public class MummyMazeState extends State implements Cloneable{
         int space_right = hero_column + 1;
         if(isValidPosition(hero_line, block_right))   //If the position exists on the matrix
         {
-            switch (matrix[space_right][hero_column]){
+            switch (matrix[hero_line][space_right]){
                 case WALL_VERTICAL:
                 case DOOR_VERTICAL_CLOSED:
                     return false;
             }
-            switch(matrix[hero_line][space_right]){
+            switch(matrix[hero_line][block_right]){
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:

@@ -7,7 +7,7 @@ import agent.State;
 
 import java.util.List;
 
-public class IterativeDeepeningSearch extends DepthFirstSearch
+public class IterativeDeepeningSearch extends DepthLimitedSearch
 {
     /*
      * We do not use the code from DepthLimitedSearch because we can optimize
@@ -23,51 +23,24 @@ public class IterativeDeepeningSearch extends DepthFirstSearch
 
     private int limit;
 
-    @Override
-    public Solution search(Problem problem)
-    {
+	public IterativeDeepeningSearch(){
+
+        super(-1);
         statistics.reset();
-        stopped = false;
-        limit = 0;
 
-        //TODO
-        Solution solution = null;
-
-        do
-        {
-            solution = graphSearch(problem);
-        }while(solution != null);
-
-        return solution;
     }
-
     @Override
-    protected Solution graphSearch(Problem problem){
-        //TODO
-        frontier.clear();
-        frontier.add(new Node(problem.getInitialState()));
+    public Solution search(Problem problem) {
+        stopped = false;
+        
+        limit++;
 
-        while(!frontier.isEmpty() && !stopped)
-        {
-            Node n = frontier.poll();
-            State state = n.getState();
+        Solution t = graphSearch(problem);
+        System.out.println(t);
+        return t==null? search(problem): t;
 
-            if(n.getDepth() - 1 == limit && problem.isGoal(state))
-            {
-                return new Solution(problem, n);
-            }
-
-            List<Action> actions = problem.getActions(state);
-            for(Action action : actions)
-            {
-                State successor = problem.getSuccessor(state, action);
-                addSuccessorToFrontier(successor, n);
-            }
-            computeStatistics(actions.size());
-        }
-        return null;
     }
-
+  
     @Override
     public String toString() {
         return "Iterative deepening search";
