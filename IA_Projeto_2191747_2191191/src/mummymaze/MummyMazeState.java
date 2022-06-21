@@ -4,6 +4,7 @@ import agent.Action;
 import agent.State;
 import enemies.Enemy;
 import enemies.EnemyOrderComparator;
+import enemies.RedMummy;
 import enemies.WhiteMummy;
 import gui.GameArea;
 import gui.PointDimension;
@@ -55,6 +56,10 @@ public class MummyMazeState extends State implements Cloneable{
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
+					case MUMMY_RED:
+						EnemyOrderComparator cmp2= new EnemyOrderComparator();
+						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
+						enemies.sort(cmp2);	
 					default:
 						break;
 				}
@@ -87,7 +92,10 @@ public class MummyMazeState extends State implements Cloneable{
 						EnemyOrderComparator cmp= new EnemyOrderComparator();
 						enemies.add(new WhiteMummy(new PointDimension<Integer>(i, j), "White_Mummy"));
 						enemies.sort(cmp);	
-						//System.out.println(Enemy.enemies.getFirst().getEnemy_position().toString());
+					case MUMMY_RED:
+						EnemyOrderComparator cmp2= new EnemyOrderComparator();
+						enemies.add(new RedMummy(new PointDimension<Integer>(i, j), "Red_Mummy"));
+						enemies.sort(cmp2);
 					default:
 						break;
 				}
@@ -118,17 +126,18 @@ public class MummyMazeState extends State implements Cloneable{
         if(isValidPosition(block_above, hero_column)){   //If the position exists on the matrix
             switch (matrix[space_above][hero_column]){
 				case WALL_HORIZONTAL: 
+				case DOOR_HORIZONTAL_CLOSED:
+					return false;
+			}
+			switch(matrix[block_above][hero_column]){
 				case MUMMY_WHITE:
 				case TRAP:
 				case MUMMY_RED:
-				case DOOR_HORIZONTAL_CLOSED:
 				case SCORPION: 
 					return false;
-				default:
+				default: 
 					return true;
-					
 			}
-			
         }
         else
         {

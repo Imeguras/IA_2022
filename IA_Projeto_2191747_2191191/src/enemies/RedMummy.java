@@ -9,24 +9,12 @@ import gui.GameArea.state_abst;
 import mummymaze.MummyMazeState;
 import gui.PointDimension;
 
-public class WhiteMummy extends Enemy{
+
+public class RedMummy extends Enemy{
 	public LinkedList<EnemyAction> actions;
 
-	@Override
-	public boolean canKill(MummyMazeState state) {
-		PointDimension<Integer> oldPos=this.enemy_position;
-		MummyMazeState simulateState=state.clone();
-		
-		simulateState=this.MovePoll(simulateState);
-		this.enemy_position=oldPos;
-		if(simulateState.hero_dead){
-			return true;
-		}
-		return false;
-	}
-
-	public WhiteMummy(PointDimension<Integer> enemy_position, String name){
-        super(enemy_position, "White Mummy");
+	public RedMummy(PointDimension<Integer> enemy_position, String name){
+        super(enemy_position, "Red Mummy");
 		actions = new LinkedList<EnemyAction>();
 		this.actions.add(new EnemyActionLeft(this));
         this.actions.add(new EnemyActionRight(this));
@@ -34,10 +22,6 @@ public class WhiteMummy extends Enemy{
         this.actions.add(new EnemyActionUp(this));
 		this.actions.add(new EnemyActionQuiet(this));
     }
-	@Override
-	public state_abst getSymbol(){
-		return state_abst.MUMMY_WHITE;
-	}
 
 	@Override
 	public void MoveDown(MummyMazeState state) {
@@ -113,6 +97,7 @@ public class WhiteMummy extends Enemy{
 		state.matrix[enemy_position.line][block_left] = getSymbol();
 		enemy_position.col=block_left;
 	}
+
 	@Override 
 	public MummyMazeState MovePoll(MummyMazeState state) {
 		PointDimension<Integer> oldPos =getEnemy_position();
@@ -141,10 +126,10 @@ public class WhiteMummy extends Enemy{
 						if (state.hero_dead) {
 							return state.clone();
 						//check if it made any progress in being in the same column as hero
-						}else if(Math.abs(state.getHero_pos().col-oldPos.col)>Math.abs(state.getHero_pos().col-getEnemy_position().col) || Math.abs(state.getHero_pos().col-getEnemy_position().col)==0){
+						}else if(Math.abs(state.getHero_pos().line-oldPos.line)>Math.abs(state.getHero_pos().line-getEnemy_position().line) || Math.abs(state.getHero_pos().line-getEnemy_position().line)==0){
 							return state.clone();
 						//check if after being in the same column as hero, it made any progress in being in the same line as hero
-						}else if(getEnemy_position().col==state.getHero_pos().col && Math.abs(state.getHero_pos().line-oldPos.line)<=Math.abs(state.getHero_pos().line-getEnemy_position().line)){
+						}else if(getEnemy_position().line==state.getHero_pos().line && Math.abs(state.getHero_pos().col-oldPos.col)<=Math.abs(state.getHero_pos().col-getEnemy_position().col)){
 							return state.clone();
 					
 						}
@@ -156,4 +141,23 @@ public class WhiteMummy extends Enemy{
 		this.enemy_position= oldPos; 
 		return oldState.clone();
 	}
+	@Override
+	public state_abst getSymbol(){
+		return state_abst.MUMMY_RED;
+	}
+	@Override
+	public boolean canKill(MummyMazeState state) {
+		PointDimension<Integer> oldPos=this.enemy_position;
+		MummyMazeState simulateState=state.clone();
+		
+		simulateState=this.MovePoll(simulateState);
+		this.enemy_position=oldPos;
+		if(simulateState.hero_dead){
+			return true;
+		}
+		return false;
+	}
+
+	
+	
 }

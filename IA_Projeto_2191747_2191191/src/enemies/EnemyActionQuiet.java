@@ -24,13 +24,13 @@ public class EnemyActionQuiet extends EnemyAction {
 	@Override
 	public void removeRedundantMoves(ListIterator<EnemyAction> actions) {
 	
-		/*while(actions.hasNext()) {
+		while(actions.hasNext()) {
 			EnemyAction action = actions.next();
 			if(action instanceof EnemyActionQuiet) {
 				actions.remove();
 			}
 		}
-		rewindMoves(actions);*/
+		rewindMoves(actions);
 	}
 	
 }
